@@ -1,6 +1,7 @@
 import os, tarfile, shutil, requests, subprocess
 import urllib.request
 from urllib.error import URLError, HTTPError
+from urllib.request import urlopen
 from functools import partial
 
 from PyQt6.QtWidgets import QApplication, QFileDialog
@@ -38,7 +39,7 @@ def downloadFirmware(parent):
 		exists, error = url_exists(firmware_url)
 		if exists:
 			destination = os.path.join(os.path.expanduser('~'), f'.local/lib/libmesact/{board}.tar.xz')
-			if os.path.isdir(libpath):
+			if os.path.isdir(libpath): # delete the directory and files
 				subprocess.run(["rm", "-rf", libpath])
 			download(parent, firmware_url, destination)
 			with tarfile.open(destination) as f:
@@ -60,7 +61,7 @@ def downloadFirmware(parent):
 def download_deb(deb, parent):
 	home_dir = os.path.expanduser("~") # Start in the user's home directory
 	directory = QFileDialog.getExistingDirectory(parent, "Select Directory", home_dir)
-	deb_name = {}
+	#deb_name = {}
 
 	if directory:
 		parent.statusbar.showMessage('Checking Repo')
@@ -71,6 +72,7 @@ def download_deb(deb, parent):
 		deb_url = f'https://github.com/jethornton/mesact2/releases/download/{repoVersion}/mesact_{repoVersion}_{deb}.deb'
 		exists, error = url_exists(deb_url)
 		if exists:
+			print(deb_url)
 			download(parent, deb_url, destination)
 			parent.statusbar.showMessage(f'Mesa CT Version {repoVersion} Download Complete')
 			dialogs.msg_ok('Close the Configuration tool and reinstall', 'Download Complete')

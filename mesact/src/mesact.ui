@@ -42,7 +42,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>12</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -45073,8 +45073,66 @@ auto enp2s0
         <item>
          <widget class="QGroupBox" name="groupBox_51">
           <property name="title">
-           <string>GroupBox</string>
+           <string>Downloads</string>
           </property>
+          <layout class="QVBoxLayout" name="verticalLayout_65">
+           <item>
+            <widget class="QPushButton" name="amd64_deb_pb">
+             <property name="text">
+              <string>AMD 64 deb</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="armhf_deb_pb">
+             <property name="text">
+              <string>ARM 32 deb</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="arm64_deb_pb">
+             <property name="text">
+              <string>ARM 64 deb</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="download_firmware_pb">
+             <property name="text">
+              <string>Firmware</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_5">
+             <property name="text">
+              <string>PushButton</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_6">
+             <property name="text">
+              <string>PushButton</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_7">
+             <property name="text">
+              <string>PushButton</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_8">
+             <property name="text">
+              <string>PushButton</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
         <item>

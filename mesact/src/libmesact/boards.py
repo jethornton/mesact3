@@ -333,12 +333,12 @@ def daughter_boards(parent, port_1 , port_2):
 	parent.daughterLB_2.clear()
 
 	if port_1:
-		parent.daughterLB_0.setText(port_1)
+		parent.daughterLB_1.setText(port_1)
 		for item in boards:
 			parent.daughterCB_1.addItem(item[0], item[1])
 
 	if port_2:
-		parent.daughterLB_1.setText(port_2)
+		parent.daughterLB_2.setText(port_2)
 		for item in boards:
 			parent.daughterCB_2.addItem(item[0], item[1])
 

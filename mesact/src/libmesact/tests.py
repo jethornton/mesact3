@@ -2,6 +2,7 @@
 from functools import partial
 
 from libmesact import dialogs
+from libmesact import download
 
 def connect(parent):
 	parent.msg_open_abort_cancel_pb.clicked.connect(partial(test_dialogs, parent))
@@ -12,6 +13,11 @@ def connect(parent):
 	parent.msg_yes_no_pb.clicked.connect(partial(test_dialogs, parent))
 	parent.msg_yes_no_check_pb.clicked.connect(partial(test_dialogs, parent))
 	parent.msg_ok_pb.clicked.connect(partial(test_dialogs, parent))
+
+	parent.amd64_deb_pb.clicked.connect(partial(download.download_deb, parent))
+	parent.armhf_deb_pb.clicked.connect(partial(download.download_deb, parent))
+	parent.arm64_deb_pb.clicked.connect(partial(download.download_deb, parent))
+	parent.download_firmware_pb.clicked.connect(partial(download.download_firmware, parent))
 
 def test_dialogs(parent):
 	name = parent.sender().objectName()
