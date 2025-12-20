@@ -2,11 +2,11 @@ import shutil
 
 def hide(parent):
 	# set main tab visibility
-	parent.mainTW.setTabVisible(3, False)
-	parent.mainTW.setTabVisible(4, False)
-	parent.mainTW.setTabVisible(5, False)
-	parent.mainTW.setTabVisible(6, False)
-	parent.mainTW.setTabVisible(7, False)
+	parent.main_tw.setTabVisible(3, False)
+	parent.main_tw.setTabVisible(4, False)
+	parent.main_tw.setTabVisible(5, False)
+	parent.main_tw.setTabVisible(6, False)
+	parent.main_tw.setTabVisible(7, False)
 
 def combos(parent):
 	# Machine Tab Board Name, HAL Name
@@ -43,10 +43,10 @@ def combos(parent):
 		]
 
 	for item in gui:
-		parent.guiCB.addItem(item[0], item[1])
-	parent.guiCB.setEditable(True)
+		parent.gui_cb.addItem(item[0], item[1])
+	parent.gui_cb.setEditable(True)
 	if parent.flex_gui:
-		parent.guiCB.addItem('Flex GUI', 'flexgui')
+		parent.gui_cb.addItem('Flex GUI', 'flexgui')
 
 	linearUnits = [
 		['Select', False],
@@ -55,7 +55,7 @@ def combos(parent):
 		]
 
 	for item in linearUnits:
-		parent.linearUnitsCB.addItem(item[0], item[1])
+		parent.linear_units_cb.addItem(item[0], item[1])
 
 	positionOffset = [
 		['Select', False],
@@ -64,7 +64,7 @@ def combos(parent):
 		]
 
 	for item in positionOffset:
-		parent.positionOffsetCB.addItem(item[0], item[1])
+		parent.position_offset_cb.addItem(item[0], item[1])
 
 	positionFeedback = [
 		['Select', False],
@@ -73,7 +73,7 @@ def combos(parent):
 		]
 
 	for item in positionFeedback:
-		parent.positionFeedbackCB.addItem(item[0], item[1])
+		parent.position_feedback_cb.addItem(item[0], item[1])
 
 	editor_dict = {'Gedit':'gedit', 'Geany':'geany', 'Pyroom':'pyroom',
 		'Pluma':'pluma', 'Scite':'scite', 'Kwrite':'kwrite',
@@ -86,11 +86,11 @@ def combos(parent):
 			editor_list.append([key, value])
 
 	if editor_list:
-		parent.editorCB.addItem('Select', False)
+		parent.editor_cb.addItem('Select', False)
 		for item in editor_list:
-			parent.editorCB.addItem(item[0], item[1])
+			parent.editor_cb.addItem(item[0], item[1])
 	else:
-		parent.editorCB.addItem('No Editors Found', False)
+		parent.editor_cb.addItem('No Editors Found', False)
 
 	screen_size = [
 	['Select', False],
@@ -173,15 +173,15 @@ def combos(parent):
 		]
 
 	for item in ssCards:
-		parent.ssCardCB.addItem(item[0], item[1])
+		parent.ss_card_cb.addItem(item[0], item[1])
 
 	# 7i73 Combo Boxes
-	parent.ss7i73_keypadCB.addItem('None', ['w5d', 'w6d'])
-	parent.ss7i73_keypadCB.addItem('4x8', ['w5d', 'w6u'])
-	parent.ss7i73_keypadCB.addItem('8x8', ['w5u', 'w6d'])
+	parent.ss7i73_keypad_cb.addItem('None', ['w5d', 'w6d'])
+	parent.ss7i73_keypad_cb.addItem('4x8', ['w5d', 'w6u'])
+	parent.ss7i73_keypad_cb.addItem('8x8', ['w5u', 'w6d'])
 
-	parent.ss7i73lcdCB.addItem('None', 'w7d')
-	parent.ss7i73lcdCB.addItem('Enabled', 'w7u')
+	parent.ss7i73lcd_cb.addItem('None', 'w7d')
+	parent.ss7i73lcd_cb.addItem('Enabled', 'w7u')
 
 	cpuSpeed = [
 		['MHz', 1000000],
@@ -217,7 +217,7 @@ def combos(parent):
 		]
 
 	for item in debug:
-		parent.debugCB.addItem(item[0], item[1])
+		parent.debug_cb.addItem(item[0], item[1])
 
 
 

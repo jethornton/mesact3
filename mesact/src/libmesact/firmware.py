@@ -14,10 +14,10 @@ def load(parent):
 			for file in files:
 				if os.path.splitext(file)[1] in firmware:
 					parent.firmware_cb.addItem(os.path.basename(file), file)
-			parent.firmwarePTE.clear()
-			parent.firmwareTW.setCurrentIndex(0)
+			parent.firmware_pte.clear()
+			parent.firmware_tw.setCurrentIndex(0)
 			if parent.read_hmid_gb.isEnabled(): # set mesaflash tools on if installed
-				parent.firmwareGB.setEnabled(True)
+				parent.firmware_gb.setEnabled(True)
 		else:
 			noFirmware(parent, parent.board_hal_name)
 	else:
@@ -25,7 +25,7 @@ def load(parent):
 
 
 def noFirmware(parent, board):
-	parent.firmwareTW.setCurrentIndex(1)
+	parent.firmware_tw.setCurrentIndex(1)
 	msg = (f'No Firmware found for the {board}\n'
 	'Downloads > Firmware from the menu if you have an Internet connection\n'
 	'The firmware will be to downloaded and installed\n'
@@ -33,8 +33,8 @@ def noFirmware(parent, board):
 	'If you do not have an Internet connection\nfrom another computer download from \n'
 	f'https://github.com/jethornton/mesact_firmware/releases/download/1.0.0/{board}.tar.xz\n'
 	f'Extract the firmware to {os.path.expanduser("~")}/.local/lib/libmesact/{board}')
-	parent.firmwarePTE.setPlainText(msg)
-	parent.firmwareGB.setEnabled(False)
+	parent.firmware_pte.setPlainText(msg)
+	parent.firmware_gb.setEnabled(False)
 	parent.firmware_cb.clear()
 
 	if parent.settings.value('NAGS/firmware', None, type=bool):

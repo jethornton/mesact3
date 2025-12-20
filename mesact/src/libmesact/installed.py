@@ -26,18 +26,18 @@ def versions(parent):
 		if len(mf) > 0:
 			version = mf.split()[2]
 			parent.mesaflash_version = tuple(int(i) for i in version.split('.'))
-			parent.mesaflashVersionLB.setText(version)
+			parent.mesaflash_version_lb.setText(version)
 			parent.mesaflash = True
 			parent.flashed = False
 	except FileNotFoundError as error:
-		parent.firmwareGB.setEnabled(False)
+		parent.firmware_gb.setEnabled(False)
 		parent.verify_board_pb.setEnabled(False)
-		parent.mesaflashVersionLB.setText('Not Installed')
+		parent.mesaflash_version_lb.setText('Not Installed')
 		parent.mesaflash = False
 		parent.mesaflash_version = ()
 
 	# get emc version if installed
-	parent.emcVersionLB.clear()
+	parent.emcVersion_lb.clear()
 	parent.emc_version = (0, 0, 0)
 	try: # don't crash if your not running debian
 		emc = subprocess.check_output(['apt-cache', 'policy', 'linuxcnc-uspace'], text=True)
@@ -58,13 +58,13 @@ def versions(parent):
 					version = version.split('~')[0]
 				# make damn sure version is valid
 				if all(c in "0123456789." for c in version) and version.count('.') > 1:
-					parent.emcVersionLB.setText(version)
+					parent.emcVersion_lb.setText(version)
 					parent.emc_version = tuple(int(i) for i in version.split('.'))
 				else:
-					parent.emcVersionLB.setText('Version Error')
+					parent.emcVersion_lb.setText('Version Error')
 				break
 	else:
-		parent.emcVersionLB.setText('Not Installed')
+		parent.emcVersion_lb.setText('Not Installed')
 
 	try:
 		os_name = subprocess.check_output(['lsb_release', '-is'], encoding='UTF-8').split()
@@ -76,8 +76,8 @@ def versions(parent):
 		parent.os_name_lb.setText('OS Unknown')
 		parent.os_code_name_lb.setText('No Codename')
 
-	parent.platformLB.setText(sysconfig.get_platform())
-	parent.pythonLB.setText(python_version())
+	parent.platform_lb.setText(sysconfig.get_platform())
+	parent.python_lb.setText(python_version())
 	parent.pyqt_lb.setText(qVersion())
 
 def check(parent):

@@ -15,8 +15,8 @@ def changed(parent, tab, index):
 	# FIXME might be better to match the board name and board would be false if not selected
 	match board:
 		case False:
-			parent.mainTW.setTabVisible(tab, False)
-			parent.mainTW.setTabText(tab, '')
+			parent.main_tw.setTabVisible(tab, False)
+			parent.main_tw.setTabText(tab, '')
 		case '7i76': # 7i76
 			# 5 step/dir 32 inputs 16 outputs 1 potentiometer spindle 1 encoder
 			print('7i76 selected')
@@ -44,8 +44,8 @@ def changed(parent, tab, index):
 	'''
 
 def set_drives(parent, drives, tab):
-	parent.mainTW.setTabVisible(tab, True)
-	parent.mainTW.setTabText(tab, parent.sender().currentText())
+	parent.main_tw.setTabVisible(tab, True)
+	parent.main_tw.setTabText(tab, parent.sender().currentText())
 
 	for i in range(1, 7):
 		getattr(parent, f'joint_tw_{tab}').setTabVisible(i, False)

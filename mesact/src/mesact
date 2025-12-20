@@ -55,7 +55,7 @@ class mesact(QMainWindow):
 	def resizeEvent(self, event):
 		width = self.geometry().width()
 		height =  self.geometry().height()
-		self.sizeLB.setText(f'{width}x{height}')
+		self.size_lb.setText(f'{width}x{height}')
 		QMainWindow.resizeEvent(self, event)
 
 

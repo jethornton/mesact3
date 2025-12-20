@@ -8,8 +8,8 @@ def changed(parent, index):
 	if index > 0: # set common items for all boards
 		parent.board_name = parent.board_cb.currentText()
 		parent.board_hal_name = parent.board_cb.currentData()
-		parent.mainTW.setTabVisible(3, True)
-		parent.mainTW.setTabText(3, parent.board_name)
+		parent.main_tw.setTabVisible(3, True)
+		parent.main_tw.setTabText(3, parent.board_name)
 		parent.joint_tw_3.setTabText(0, parent.board_name)
 		if parent.mesaflash:
 			parent.read_hmid_gb.setEnabled(True)
@@ -20,7 +20,7 @@ def changed(parent, index):
 			print('no board selected')
 			address(parent, None)
 			daughter_boards(parent, None , None)
-			parent.mainTW.setTabVisible(3, False)
+			parent.main_tw.setTabVisible(3, False)
 			parent.board_name = None
 			parent.board_hal_name = None
 			parent.mesaflash_name = None
@@ -312,8 +312,8 @@ def address(parent, type):
 			parent.address_lb.setText('N/A')
 
 def daughter_boards(parent, port_1 , port_2):
-	parent.mainTW.setTabVisible(4, False)
-	parent.mainTW.setTabVisible(5, False)
+	parent.main_tw.setTabVisible(4, False)
+	parent.main_tw.setTabVisible(5, False)
 
 	boards = [
 	['Select', None],

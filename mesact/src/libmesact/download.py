@@ -1,5 +1,5 @@
 import os, requests, subprocess, tarfile
-
+from pathlib import Path
 from functools import partial
 
 import urllib.request
@@ -48,30 +48,29 @@ class Downloader(QThread):
 			self.failed.emit(f'Download failed: {e}')
 
 def download_firmware(parent):
-	# print(f' {}')
 	board = parent.board_cb.currentData()
 	if board:
+		firmware_dir = Path.home() / '.local/lib/libmesact'
+		if not firmware_dir.exists():
+			firmware_dir.mkdir(parents=True)
 		url = f'https://github.com/jethornton/mesact_firmware/releases/download/1.0.0/{board}.tar.xz'
-		exists, error = url_exists(url)
-		if exists:
-			destination = os.path.join(os.path.expanduser('~'), f'.local/lib/libmesact/{board}.tar.xz')
-			lib_path = os.path.join(os.path.expanduser('~'), f'.local/lib/libmesact/{board}')
-			if os.path.isdir(lib_path): # delete the directory and files
-				subprocess.run(["rm", "-rf", lib_path])
+		destination = os.path.join(os.path.expanduser('~'), f'.local/lib/libmesact/{board}.tar.xz')
+		lib_path = os.path.join(os.path.expanduser('~'), f'.local/lib/libmesact/{board}')
+		if os.path.isdir(lib_path): # delete the directory and files
+			subprocess.run(["rm", "-rf", lib_path])
 
-			# Initialize and run the downloader thread
-			parent.downloader = Downloader(url, destination)
-			parent.downloader.setTotalProgress.connect(partial(set_max_progress, parent))
-			parent.downloader.setCurrentProgress.connect(partial(update_progress, parent))
-			parent.downloader.succeeded.connect(partial(download_firmware_succeeded, destination, lib_path, parent))
-			parent.downloader.failed.connect(partial(download_failed, parent))
-			parent.downloader.start()
+		# Initialize and run the downloader thread
+		parent.downloader = Downloader(url, destination)
+		parent.downloader.setTotalProgress.connect(partial(set_max_progress, parent))
+		parent.downloader.setCurrentProgress.connect(partial(update_progress, parent))
+		parent.downloader.succeeded.connect(partial(download_firmware_succeeded, destination, lib_path, parent))
+		parent.downloader.failed.connect(partial(download_failed, parent))
+		parent.downloader.start()
 	else:
 		dialogs.msg_ok(parent, 'Select a Board\nto download firmware', 'Firmware Download')
 
-def download_deb(parent, deb):
-	home_dir = os.path.expanduser("~") # Start in the user's home directory
-	directory = QFileDialog.getExistingDirectory(parent, "Select Directory", home_dir)
+def download_deb(deb, parent):
+	directory = QFileDialog.getExistingDirectory(parent, "Select Directory", str(Path.home()))
 
 	if directory:
 		parent.statusbar.showMessage('Checking Repo')
@@ -90,8 +89,7 @@ def download_deb(parent, deb):
 	parent.downloader.start()
 
 def download_manual(manual, parent):
-	home_dir = os.path.expanduser("~") # Start in the user's home directory
-	directory = QFileDialog.getExistingDirectory(parent, "Select Directory", home_dir)
+	directory = QFileDialog.getExistingDirectory(parent, "Select Directory", str(Path.home()))
 
 	if directory:
 		destination = os.path.join(directory, manual)
