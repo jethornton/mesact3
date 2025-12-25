@@ -32,28 +32,28 @@ def card_changed(parent):
 	parent.ss_pages.setCurrentIndex(sspage[parent.ss_card_cb.currentText()])
 
 
-def ss7i73Changed(parent):
+def ss7i73_changed(parent):
 	lcd = False
 	keypad = False
-	if parent.ss7i73lcdCB.currentData() == 'w7d': # no LCD
-		parent.ss7i73w7Lbl.setText('W7 Down')
+	if parent.ss7i73lcd_cb.currentData() == 'w7d': # no LCD
+		parent.ss7i73w7_lb.setText('W7 Down')
 		lcd = False
-	elif parent.ss7i73lcdCB.currentData() == 'w7u': # LCD
-		parent.ss7i73w7Lbl.setText('W7 Up')
+	elif parent.ss7i73lcd_cb.currentData() == 'w7u': # LCD
+		parent.ss7i73w7_lb.setText('W7 Up')
 		lcd = True
-	if parent.ss7i73_keypadCB.currentData()[0] == 'w5d':
-		if parent.ss7i73_keypadCB.currentData()[1] == 'w6d': # no keypad
-			parent.ss7i73w5Lbl.setText('W5 Down')
-			parent.ss7i73w6Lbl.setText('W6 Down')
+	if parent.ss7i73_keypad_cb.currentData()[0] == 'w5d':
+		if parent.ss7i73_keypad_cb.currentData()[1] == 'w6d': # no keypad
+			parent.ss7i73w5_lb.setText('W5 Down')
+			parent.ss7i73w6_lb.setText('W6 Down')
 			keypad = False
-		elif parent.ss7i73_keypadCB.currentData()[1] == 'w6u': # 4x8 keypad
-			parent.ss7i73w5Lbl.setText('W5 Down')
-			parent.ss7i73w6Lbl.setText('W6 Up')
+		elif parent.ss7i73_keypad_cb.currentData()[1] == 'w6u': # 4x8 keypad
+			parent.ss7i73w5_lb.setText('W5 Down')
+			parent.ss7i73w6_lb.setText('W6 Up')
 			keypad = True
 			keys = '4x8'
-	elif parent.ss7i73_keypadCB.currentData()[0] == 'w5u': # 8x8 keypad
-			parent.ss7i73w5Lbl.setText('W5 Up')
-			parent.ss7i73w6Lbl.setText('W6 Down')
+	elif parent.ss7i73_keypad_cb.currentData()[0] == 'w5u': # 8x8 keypad
+			parent.ss7i73w5_lb.setText('W5 Up')
+			parent.ss7i73w6_lb.setText('W6 Down')
 			keypad = True
 			keys = '8x8'
 

@@ -173,7 +173,7 @@ def build_combos(parent):
 	parent.ss7i73_keypad_cb.addItem('4x8', ['w5d', 'w6u'])
 	parent.ss7i73_keypad_cb.addItem('8x8', ['w5u', 'w6d'])
 
-	parent.ss7i73lcd_cb.addItem('None', 'w7d')
+	parent.ss7i73lcd_cb.addItem('Disabled', 'w7d')
 	parent.ss7i73lcd_cb.addItem('Enabled', 'w7u')
 
 	cpuSpeed = [

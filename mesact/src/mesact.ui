@@ -41839,7 +41839,7 @@ TB2 PIN	SIGNAL	CAT5 PIN	CAT5 568B COLOR
                     <widget class="QComboBox" name="ss7i73_keypad_cb"/>
                    </item>
                    <item>
-                    <widget class="QLabel" name="ss7i73w5Lbl">
+                    <widget class="QLabel" name="ss7i73w5_lb">
                      <property name="minimumSize">
                       <size>
                        <width>0</width>
@@ -41855,7 +41855,7 @@ TB2 PIN	SIGNAL	CAT5 PIN	CAT5 568B COLOR
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLabel" name="ss7i73w6Lbl">
+                    <widget class="QLabel" name="ss7i73w6_lb">
                      <property name="minimumSize">
                       <size>
                        <width>0</width>
@@ -41881,7 +41881,7 @@ TB2 PIN	SIGNAL	CAT5 PIN	CAT5 568B COLOR
                     <widget class="QComboBox" name="ss7i73lcd_cb"/>
                    </item>
                    <item>
-                    <widget class="QLabel" name="ss7i73w7Lbl">
+                    <widget class="QLabel" name="ss7i73w7_lb">
                      <property name="frameShape">
                       <enum>QFrame::Box</enum>
                      </property>
