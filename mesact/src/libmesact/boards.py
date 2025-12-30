@@ -298,7 +298,6 @@ def changed(parent, index):
 			parent.main_tw.setTabVisible(6, False)
 
 def check_mesaflash(parent, version):
-	print(parent.mesaflash_version >= version)
 	if parent.mesaflash_version >= version:
 		parent.firmware_gb.setEnabled(True)
 		parent.read_hmid_gb.setEnabled(True)
