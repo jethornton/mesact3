@@ -1,4 +1,4 @@
-import os
+import os, shutil
 
 from libmesact import openini
 
@@ -14,6 +14,8 @@ def hide_tabs(parent):
 
 def disable_controls(parent):
 	parent.mdi_commands_gb.setEnabled(False)
+	parent.firmware_gb.setEnabled(False)
+	parent.read_hmid_gb.setEnabled(False)
 
 def load_ini(parent):
 	if parent.settings.contains('STARTUP/config'):
@@ -33,6 +35,11 @@ def test(parent):
 	parent.position_feedback_cb.setCurrentIndex(1)
 	parent.def_lin_jog_vel_dsb.setValue(0.1)
 	set_joints(parent, 0, ['X', 'Y', 'Z'])
+	parent.halui_cb.setChecked(True)
+	parent.mdi_le_0.setText('G0 X0 Y0')
+	config_dir = '/home/john/linuxcnc/configs/mesa_ct_3'
+	if os.path.isdir(config_dir):
+		shutil.rmtree(config_dir)
 
 def set_joints(parent, card, axes):
 	# value = <value_if_true> if <expression> else <value_if_false>
