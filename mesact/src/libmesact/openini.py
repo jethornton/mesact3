@@ -60,12 +60,13 @@ def load_ini(parent, ini_file=None):
 					update(parent, mesa[key], value)
 
 	if '[EMC]' in sections:
+		start = sections['[EMC]'][0]
+		end = sections['[EMC]'][1]
+
 		emc = {}
 		emc['MACHINE'] = 'machine_name_le'
 		emc['DEBUG'] = 'debug_cb'
 
-		start = sections['[EMC]'][0]
-		end = sections['[EMC]'][1]
 		for item in ini_list[start + 1:end + 1]:
 			if '=' in item:
 				key, value = [part.strip() for part in item.split('=', 1)]
@@ -82,11 +83,12 @@ def load_ini(parent, ini_file=None):
 	'''
 
 	if '[HM2]' in sections:
+		start = sections['[HM2]'][0]
+		end = sections['[HM2]'][1]
+
 		hm2 = {}
 		hm2['ADDRESS'] = 'address_cb'
 
-		start = sections['[HM2]'][0]
-		end = sections['[HM2]'][1]
 		for item in ini_list[start + 1:end + 1]:
 			if '=' in item:
 				key, value = [part.strip() for part in item.split('=', 1)]
@@ -94,8 +96,12 @@ def load_ini(parent, ini_file=None):
 					update(parent, hm2[key], value)
 
 	if '[DISPLAY]' in sections:
+		start = sections['[DISPLAY]'][0]
+		end = sections['[DISPLAY]'][1]
+
 		display = {}
 		display['DISPLAY'] = 'gui_cb'
+		display['GUI'] = 'flex_gui_le'
 		display['EDITOR'] = 'editor_cb'
 		display['POSITION_OFFSET'] = 'position_offset_cb'
 		display['POSITION_FEEDBACK'] = 'position_feedback_cb'
@@ -111,8 +117,6 @@ def load_ini(parent, ini_file=None):
 		display['BACK_TOOL_LATHE'] = 'backtool_lathe_rb'
 		display['FOAM'] = 'foam_rb'
 
-		start = sections['[DISPLAY]'][0]
-		end = sections['[DISPLAY]'][1]
 		for item in ini_list[start + 1:end + 1]:
 			if '=' in item:
 				key, value = [part.strip() for part in item.split('=', 1)]
@@ -125,10 +129,12 @@ def load_ini(parent, ini_file=None):
 
 	# EMCMOT
 	if '[EMCMOT]' in sections:
-		emcot = {}
-		emcot['SERVO_PERIOD'] = 'servo_period_sb'
 		start = sections['[EMCMOT]'][0]
 		end = sections['[EMCMOT]'][1]
+
+		emcot = {}
+		emcot['SERVO_PERIOD'] = 'servo_period_sb'
+
 		for item in ini_list[start + 1:end + 1]:
 			if '=' in item:
 				key, value = [part.strip() for part in item.split('=', 1)]
@@ -139,13 +145,15 @@ def load_ini(parent, ini_file=None):
 
 	# HAL
 	if '[HAL]' in sections:
+		start = sections['[HAL]'][0]
+		end = sections['[HAL]'][1]
+
 		hal_files = {}
 		#hal_files['HALFILE'] = 'custom_hal_cb'
 		hal_files['POSTGUI_HALFILE'] = 'postgui_hal_cb'
 		hal_files['SHUTDOWN'] = 'shutdown_hal_cb'
 		hal_files['HALUI'] = 'halui_cb'
-		start = sections['[HAL]'][0]
-		end = sections['[HAL]'][1]
+
 		for item in ini_list[start + 1:end + 1]:
 			if '=' in item:
 				key, value = [part.strip() for part in item.split('=', 1)]
@@ -158,6 +166,7 @@ def load_ini(parent, ini_file=None):
 	if '[HALUI]' in sections:
 		start = sections['[HALUI]'][0]
 		end = sections['[HALUI]'][1]
+
 		row = 0
 		for item in ini_list[start + 1:end + 1]:
 			if '=' in item:
@@ -172,12 +181,14 @@ def load_ini(parent, ini_file=None):
 
 	# TRAJ # FIXME there are more options for traj
 	if '[TRAJ]' in sections:
+		start = sections['[TRAJ]'][0]
+		end = sections['[TRAJ]'][1]
+
 		traj_dict = {}
 		traj_dict['LINEAR_UNITS'] = 'linear_units_cb'
 		traj_dict['MAX_LINEAR_VELOCITY'] = 'traj_max_lin_vel_dsb'
 		traj_dict['NO_FORCE_HOMING'] = 'no_force_homing_cb'
-		start = sections['[TRAJ]'][0]
-		end = sections['[TRAJ]'][1]
+
 		for item in ini_list[start + 1:end + 1]:
 			if '=' in item:
 				key, value = [part.strip() for part in item.split('=', 1)]
@@ -199,10 +210,10 @@ def load_ini(parent, ini_file=None):
 			for item in ini_list[start + 1:end + 1]:
 				# CARD is the Board Tab
 				# TAB is the Drive
-				if item.startswith('CARD'):
+				if item.startswith('BOARD'):
 					key, value = [part.strip() for part in item.split('=', 1)]
 					board = value
-				elif item.startswith('TAB'):
+				elif item.startswith('DRIVE'):
 					key, value = [part.strip() for part in item.split('=', 1)]
 					joint = value
 
@@ -256,20 +267,45 @@ def load_ini(parent, ini_file=None):
 						update(parent, joint_dict[key], value)
 
 	# SPINDLE_
+	if '[SPINDLE_0]' in sections:
+		start = sections['[SPINDLE_0]'][0]
+		end = sections['[SPINDLE_0]'][1]
+
+		spindle_dict = {}
+		spindle_dict['P'] = 'p_s'
+		spindle_dict['I'] = 'i_s'
+		spindle_dict['D'] = 'd_s'
+		spindle_dict['FF0'] = 'ff0_s'
+		spindle_dict['FF1'] = 'ff1_s'
+		spindle_dict['FF2'] = 'ff2_s'
+		spindle_dict['BIAS'] = 'bias_s'
+		spindle_dict['DEADBAND'] = 'deadband_s'
+		spindle_dict['MAX_OUTPUT'] = 'spindle_rpm_le'
+
+		for item in ini_list[start + 1:end + 1]:
+			if '=' in item:
+				key, value = [part.strip() for part in item.split('=', 1)]
+				if key in spindle_dict and value not in ['Select', 'None']:
+					update(parent, spindle_dict[key], value)
+
+		for item in ini_list[start + 1:end + 1]:
+			if item.startswith('OUTPUT_SCALE'):
+				update(parent, 'spindle_dir_cb', 'True')
+
 
 	# EMCIO
 
 	# INPUTS
 	if '[INPUTS]' in sections:
+		start = sections[f'[INPUTS]'][0]
+		end = sections[f'[INPUTS]'][1]
+
 		input_dict = {}
 		for i in range(3):
 			for j in range(32):
 				input_dict[f'INPUT_{i}_{j}'] = f'c{i}_input_{j}'
 				input_dict[f'INPUT_INVERT_{i}_{j}'] = f'c{i}_input_invert_{j}'
 				input_dict[f'INPUT_SLOW_{i}_{j}'] = f'c{i}_input_debounce_{j}'
-
-		start = sections[f'[INPUTS]'][0]
-		end = sections[f'[INPUTS]'][1]
 
 		for item in ini_list[start + 1:end + 1]:
 			if '=' in item:
@@ -280,14 +316,14 @@ def load_ini(parent, ini_file=None):
 
 	# OUTPUTS
 	if '[OUTPUTS]' in sections:
+		start = sections[f'[OUTPUTS]'][0]
+		end = sections[f'[OUTPUTS]'][1]
+
 		output_dict = {}
 		for i in range(3):
 			for j in range(16):
 				output_dict[f'OUTPUT_{i}_{j}'] = f'c{i}_output_{j}'
 				output_dict[f'OUTPUT_INVERT_{i}_{j}'] = f'c{i}_output_invert_{j}'
-
-		start = sections[f'[OUTPUTS]'][0]
-		end = sections[f'[OUTPUTS]'][1]
 
 		for item in ini_list[start + 1:end + 1]:
 			if '=' in item:
@@ -312,6 +348,9 @@ def load_ini(parent, ini_file=None):
 
 	# OPTIONS
 	if '[OPTIONS]' in sections:
+		start = sections[f'[OPTIONS]'][0]
+		end = sections[f'[OPTIONS]'][1]
+
 		options_dict = {}
 		options_dict['LOAD_CONFIG'] = 'load_config_cb'
 		options_dict['INTRO_GRAPHIC'] = 'intro_graphic_le'
@@ -320,9 +359,6 @@ def load_ini(parent, ini_file=None):
 		options_dict['PYVCP'] = 'pyvcp_cb'
 		options_dict['LADDER'] = 'ladder_gb'
 		options_dict['BACKUP'] = 'backup_cb'
-
-		start = sections[f'[OPTIONS]'][0]
-		end = sections[f'[OPTIONS]'][1]
 
 		for item in ini_list[start + 1:end + 1]:
 			if '=' in item:
@@ -333,6 +369,10 @@ def load_ini(parent, ini_file=None):
 
 	# PLC
 	if '[PLC]' in sections:
+		start = sections[f'[PLC]'][0]
+		end = sections[f'[PLC]'][1]
+
+		update(parent, 'ladder_gb', 'True')
 		plc_dict = {}
 		plc_dict['LADDER_RUNGS'] = 'ladder_rungs_sb'
 		plc_dict['LADDER_BITS'] = 'ladder_bits_sb'
@@ -350,9 +390,6 @@ def load_ini(parent, ini_file=None):
 		plc_dict['LADDER_SECTIONS'] = 'ladder_sections_sb'
 		plc_dict['LADDER_SYMBOLS'] = 'ladder_symbols_sb'
 		plc_dict['LADDER_EXPRESSIONS'] = 'ladder_expresions_sb'
-
-		start = sections[f'[PLC]'][0]
-		end = sections[f'[PLC]'][1]
 
 		for item in ini_list[start + 1:end + 1]:
 			if '=' in item:

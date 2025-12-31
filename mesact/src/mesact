@@ -58,6 +58,7 @@ class mesact(QMainWindow):
 		startup.disable_controls(self)
 		startup.load_ini(self)
 		#startup.test(self)
+		startup.open_test(self)
 
 		# remove after testing FIXME
 		tests.connect(self)

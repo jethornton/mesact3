@@ -1,7 +1,7 @@
 
 from datetime import datetime
 
-from PyQt6.QtWidgets import QSpinBox
+from PyQt6.QtWidgets import QSpinBox, QPushButton
 
 def build(parent):
 	parent.info_pte.appendPlainText(f'Building {parent.ini_path}')
@@ -14,7 +14,6 @@ def build(parent):
 	contents.append('\n[MESA]\n')
 	contents.append(f'VERSION = {parent.version}\n')
 	contents.append(f'BOARD_NAME = {parent.board_cb.currentText()}\n')
-	contents.append(f'MESAFLASH_NAME = {parent.board_cb.currentData()}\n')
 	if parent.firmware_cb.currentData():
 		contents.append(f'FIRMWARE = {parent.firmware_cb.currentData()}\n')
 	if parent.daughter_cb_1.currentData():
@@ -32,12 +31,12 @@ def build(parent):
 
 	# build the [HM2] section
 	contents.append('\n[HM2]\n')
-	if parent.board_type == 'eth':
+	if parent.board_interface == 'eth':
 		contents.append('DRIVER = hm2_eth\n')
 		contents.append(f'ADDRESS = {parent.address_cb.currentText()}\n')
-	elif parent.board_type == 'pci':
+	elif parent.board_interface == 'pci':
 		contents.append('DRIVER = hm2_pci\n')
-	elif parent.board_type == 'spi':
+	elif parent.board_interface == 'spi':
 		contents.append('DRIVER = hm2_spix\n')
 
 	# build the [DISPLAY] section
@@ -46,12 +45,43 @@ def build(parent):
 		contents.append(f'DISPLAY = {parent.gui_cb.currentText()}\n')
 	else:
 		contents.append(f'DISPLAY = {parent.gui_cb.currentData()}\n')
+	# Flex GUI
+	if parent.gui_cb.currentData() == 'flexgui':
+		contents.append(f'GUI = {parent.flex_gui_le.text()}\n')
+
 	contents.append(f'PROGRAM_PREFIX = ~/linuxcnc/nc_files\n')
 
+	if parent.gui_cb.currentData() == 'axis':
+		contents.append(f'INTRO_GRAPHIC = {parent.intro_graphic_le.text()}\n')
+		contents.append(f'INTRO_TIME = {parent.splash_screen_sb.value()}\n')
+		contents.append(f'OPEN_FILE = "{parent.startup_file_le.text()}"\n')
 
-	# Flex GUI
-	if len(parent.flex_gui_le.text()) > 0:
-		contents.append(f'GUI = {parent.flex_gui_le.text()}\n')
+	if parent.max_feed_override_dsb.value() > 0:
+		contents.append(f'MAX_FEED_OVERRIDE = {parent.max_feed_override_dsb.value():.1f}\n')
+	if parent.min_lin_jog_vel_dsb.value() > 0:
+		contents.append(f'MIN_LINEAR_VELOCITY = {parent.min_lin_jog_vel_dsb.value():.1f}\n')
+	if parent.gui_cb.currentData() == 'axis':
+		contents.append(f'DEFAULT_LINEAR_VELOCITY = {parent.def_lin_jog_vel_dsb.value():.1f}\n')
+	if parent.max_lin_jog_vel_dsb.value() > 0:
+		contents.append(f'MAX_LINEAR_VELOCITY = {parent.max_lin_jog_vel_dsb.value():.1f}\n')
+	if parent.min_ang_jog_vel_dsb.value() > 0:
+		contents.append(f'MIN_ANGULAR_VELOCITY = {parent.min_ang_jog_vel_dsb.value():.1f}\n')
+	if parent.def_ang_jog_vel_dsb.value() > 0:
+		contents.append(f'DEFAULT_ANGULAR_VELOCITY = {parent.def_ang_jog_vel_dsb.value():.1f}\n')
+	if parent.max_ang_jog_vel_dsb.value() > 0:
+		contents.append(f'MAX_ANGULAR_VELOCITY = {parent.max_ang_jog_vel_dsb.value():.1f}\n')
+	if parent.jog_increments.text():
+		contents.append(f'INCREMENTS = {parent.jog_increments.text()}\n')
+
+	# required by Axis
+	# INTRO_GRAPHIC = linuxcnc.gif
+	# INTRO_TIME = 5
+	# DEFAULT_LINEAR_VELOCITY = 0.250000
+	# MAX_LINEAR_VELOCITY = 1.000000
+
+
+
+	# FIXME these are in [FLEXGUI]
 	if parent.keyboard_qss_cb.isChecked():
 		contents.append(f'INPUT = keyboard\n')
 	elif parent.touch_qss_cb.isChecked():
@@ -69,25 +99,6 @@ def build(parent):
 	if parent.position_feedback_cb.currentData():
 		contents.append(f'POSITION_FEEDBACK = {parent.position_feedback_cb.currentData()}\n')
 
-	if parent.max_feed_override_dsb.value() > 0:
-		contents.append(f'MAX_FEED_OVERRIDE = {parent.max_feed_override_dsb.value():.1f}\n')
-	if parent.min_lin_jog_vel_dsb.value() > 0:
-		contents.append(f'MIN_LINEAR_VELOCITY = {parent.min_lin_jog_vel_dsb.value():.1f}\n')
-	if parent.def_lin_jog_vel_dsb.value() > 0:
-		contents.append(f'DEFAULT_LINEAR_VELOCITY = {parent.def_lin_jog_vel_dsb.value():.1f}\n')
-	if parent.max_lin_jog_vel_dsb.value() > 0:
-		contents.append(f'MAX_LINEAR_VELOCITY = {parent.max_lin_jog_vel_dsb.value():.1f}\n')
-	if parent.min_ang_jog_vel_dsb.value() > 0:
-		contents.append(f'MIN_ANGULAR_VELOCITY = {parent.min_ang_jog_vel_dsb.value():.1f}\n')
-	if parent.def_ang_jog_vel_dsb.value() > 0:
-		contents.append(f'DEFAULT_ANGULAR_VELOCITY = {parent.def_ang_jog_vel_dsb.value():.1f}\n')
-	if parent.max_ang_jog_vel_dsb.value() > 0:
-		contents.append(f'MAX_ANGULAR_VELOCITY = {parent.max_ang_jog_vel_dsb.value():.1f}\n')
-	if parent.jog_increments.text():
-		contents.append(f'INCREMENTS = {parent.jog_increments.text()}\n')
-	if parent.intro_graphic_gb.isChecked():
-		contents.append(f'INTRO_GRAPHIC = {parent.intro_graphic_le.text()}\n')
-		contents.append(f'INTRO_TIME = {parent.splash_screen_sb.value()}\n')
 	if parent.front_tool_lathe_rb.isChecked():
 		contents.append('LATHE = 1\n')
 	if parent.backtool_lathe_rb.isChecked():
@@ -117,7 +128,17 @@ def build(parent):
 	# build the [HAL] section
 	contents.append('\n[HAL]\n')
 	contents.append(f'HALFILE = main.hal\n')
-	contents.append('HALFILE = io.hal\n')
+	io = False
+	for i in range(3):
+		inputs = getattr(parent, f'c{i}_inputs_tw').findChildren(QPushButton)
+		for item in inputs:
+			if item.text() != 'Select':
+				io = True
+				break
+	#c0_inputs_tw
+	#c0_outputs_w
+	if io:
+		contents.append('HALFILE = io.hal\n')
 	if parent.ss_card_cb.currentData():
 		contents.append('HALFILE = sserial.hal\n')
 	if parent.custom_hal_cb.isChecked():
@@ -395,5 +416,6 @@ def build(parent):
 	try:
 		with open(parent.ini_path, 'w') as f:
 			f.writelines(contents)
+			parent.info_pte.appendPlainText(f'Finished Building the {parent.ini_path} file')
 	except OSError:
 		parent.info_pte.appendPlainText(f'OS error\n {traceback.print_exc()}')

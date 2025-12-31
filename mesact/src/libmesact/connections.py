@@ -83,6 +83,7 @@ def connect(parent):
 	parent.firmware_cb.currentIndexChanged.connect(partial(flash.firmware_changed, parent))
 
 	# Settings Tab
+	parent.gui_cb.currentIndexChanged.connect(partial(utilities.gui_changed, parent))
 	parent.halui_cb.toggled.connect(partial(utilities.toggle_mdi, parent))
 	parent.add_mdi_command_pb.clicked.connect(partial(utilities.add_mdi_row, parent))
 	parent.mdi_le_0.returnPressed.connect(partial(utilities.add_mdi_row, parent))

@@ -24,6 +24,9 @@ def load_ini(parent):
 			if os.path.isfile(config_file):
 				openini.load_ini(parent, config_file)
 
+def open_test(parent):
+	openini.load_ini(parent, '/home/john/linuxcnc/configs/7i76e_3/7i76e_3.ini')
+
 def test(parent):
 	parent.machine_name_le.setText('Mesa CT 3')
 	parent.board_cb.setCurrentIndex(6)

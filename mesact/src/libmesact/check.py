@@ -13,14 +13,13 @@ def check_config(parent):
 	if not parent.board_cb.currentData():
 		tab_error = True
 		config_errors.append('\tA Board must be selected')
-	if parent.board_type == 'eth' and not parent.address_cb.currentData():
-		tab_error = True
-		config_errors.append('\tAn Ethernet Address must be selected')
-	elif parent.board_type == 'spi' and not parent.address_cb.currentData():
-		tab_error = True
-		config_errors.append('\tA SPI Address must be selected')
-
-
+	else:
+		if parent.board_interface == 'eth' and not parent.address_cb.currentData():
+			tab_error = True
+			config_errors.append('\tAn Ethernet Address must be selected')
+		elif parent.board_interface == 'spi' and not parent.address_cb.currentData():
+			tab_error = True
+			config_errors.append('\tA SPI Address must be selected')
 
 	if tab_error:
 		config_errors.insert(next_header, 'Machine Tab:')
@@ -28,6 +27,22 @@ def check_config(parent):
 		tab_error = False
 	# end of Machine Tab
 
+	# check the Settings Tab for errors
+	if parent.gui_cb.currentData() == 'axis':
+		if parent.max_lin_jog_vel_dsb.value() == 0:
+			tab_error = True
+			config_errors.append('\tAxis requires the Maximum Linear Velocity to be more than 0')
+
+	if parent.gui_cb.currentData() == 'flexgui':
+		if parent.flex_gui_le.text() == '':
+			tab_error = True
+			config_errors.append('\tFlex GUI requires a ui file name to load')
+
+	if tab_error:
+		config_errors.insert(next_header, 'Settings Tab:')
+		next_header = len(config_errors)
+		tab_error = False
+	# end of Settings Tab
 
 	parent.info_pte.clear()
 	parent.main_tw.setCurrentIndex(10)

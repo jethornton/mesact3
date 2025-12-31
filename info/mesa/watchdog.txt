@@ -1,0 +1,39 @@
+5i25/6i25-7i77-P3.txt:559:     7  u32   RW     0x004C4B40  hm2_5i25.0.watchdog.timeout_ns
+5i25/5i25-7i76.txt:594:     7  u32   RW     0x004C4B40  hm2_5i25.0.watchdog.timeout_ns
+5i25/6i25-7i77-P2.txt:559:     7  u32   RW     0x004C4B40  hm2_5i25.0.watchdog.timeout_ns
+
+
+7i97/basic7i97/basic7i97.hal:10:setp    [HMOT](CARD0).watchdog.timeout_ns 5000000
+7i97/7i97_D.txt:548:     7  u32   RW     0x004C4B40  hm2_7i97.0.watchdog.timeout_ns
+7i97/7i97-pins.txt:548:     7  u32   RW     0x004C4B40  hm2_7i97.0.watchdog.timeout_ns
+7i95t/7i95T-pins.txt:753:     7  u32   RW     0x004C4B40  hm2_7i95.0.watchdog.timeout_ns
+7i96/7i96-pins.txt:476:     7  u32   RW     0x004C4B40  hm2_7i96.0.watchdog.timeout_ns
+7i96s/7i96S-7i77-pins.txt:764:     7  u32   RW     0x004C4B40  hm2_7i96s.0.watchdog.timeout_ns
+7i96s/old pin files/7i96S-7i77-pins.txt:764:     7  u32   RW     0x004C4B40  hm2_7i96s.0.watchdog.timeout_ns
+7i96s/old pin files/7i96S-7i76-pins.txt:751:     7  u32   RW     0x004C4B40  hm2_7i96s.0.watchdog.timeout_ns
+7i96s/old pin files/7i96S-7i85S-pins.txt:683:     7  u32   RW     0x004C4B40  hm2_7i96s.0.watchdog.timeout_ns
+7i96s/old pin files/7i96S-pins.txt:510:     7  u32   RW     0x004C4B40  hm2_7i96s.0.watchdog.timeout_ns
+7i92t/7i92T-7i77-7i76-pins.txt:741:     7  u32   RW     0x004C4B40  hm2_7i92.0.watchdog.timeout_ns
+7i92t/7i92T-7i78-P2-pins.txt:451:     7  u32   RW     0x004C4B40  hm2_7i92.0.watchdog.timeout_ns
+7i92t/7i92T-7i77-P1-pins.txt:580:     7  u32   RW     0x004C4B40  hm2_7i92.0.watchdog.timeout_ns
+7i92t/7i92T-7i77-7i83-pins.txt:615:     7  u32   RW     0x004C4B40  hm2_7i92.0.watchdog.timeout_ns
+7i92t/7i92T-7i76-P1-pins.txt:616:     7  u32   RW     0x004C4B40  hm2_7i92.0.watchdog.timeout_ns
+7i92t/7i92T-7i77-P2-pins.txt:580:     7  u32   RW     0x004C4B40  hm2_7i92.0.watchdog.timeout_ns
+7i92t/7i92T-7i76-P2-pins.txt:616:     7  u32   RW     0x004C4B40  hm2_7i92.0.watchdog.timeout_ns
+7i97t/basic7i97/basic7i97.hal:10:setp    [HMOT](CARD0).watchdog.timeout_ns 5000000
+7i97t/7i97T-hm2-pins.txt:554:    30  u32   RW     0x004C4B40  hm2_7i97.0.watchdog.timeout_ns
+7i97t/7i97T-all-pins.txt:998:    30  u32   RW     0x004C4B40  hm2_7i97.0.watchdog.timeout_ns
+7i97t/7i97T-pins.txt:548:    30  u32   RW     0x004C4B40  hm2_7i97.0.watchdog.timeout_ns
+Hal Differences.txt:2:setp hm2_5i25.0.watchdog.timeout_ns 5000000
+Hal Differences.txt:7:setp    hm2_5i25.0.watchdog.timeout_ns 5000000
+Hal Differences.txt:10:setp hm2_7c80.0.watchdog.timeout_ns 5000000
+Hal Differences.txt:13:setp hm2_7i76e.0.watchdog.timeout_ns 5000000
+Hal Differences.txt:18:setp hm2_7i92.0.watchdog.timeout_ns 5000000
+Hal Differences.txt:23:setp hm2_7i92.0.watchdog.timeout_ns 5000000
+Hal Differences.txt:26:setp hm2_7i96.0.watchdog.timeout_ns 5000000
+Hal Differences.txt:33:setp hm2_7i96s.0.watchdog.timeout_ns 5000000
+Hal Differences.txt:38:setp [HMOT](CARD0).watchdog.timeout_ns 5000000
+7i76e/7i76E-pins.txt:598:     7  u32   RW     0x004C4B40  hm2_7i76e.0.watchdog.timeout_ns
+7i76eu/7i76EU-pins.txt:601:     7  u32   RW     0x004C4B40  hm2_7i76e.0.watchdog.timeout_ns
+7i95/7i95-hm2-pins.txt:746:     7  u32   RW     0x004C4B40  hm2_7i95.0.watchdog.timeout_ns
+

@@ -67,6 +67,12 @@ def machine_name_changed(parent, text):
 		parent.config_path = False
 		parent.ini_path = False
 
+def gui_changed(parent):
+	if parent.gui_cb.currentData() == 'flexgui':
+		parent.flex_gui_gb.setEnabled(True)
+	else:
+		parent.flex_gui_gb.setEnabled(False)
+
 def toggle_mdi(parent):
 	if parent.sender().isChecked():
 		parent.mdi_commands_gb.setEnabled(True)
