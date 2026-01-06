@@ -1127,7 +1127,7 @@ to the clipboard</string>
         <item row="0" column="0" rowspan="3">
          <widget class="QTabWidget" name="tabWidget_6">
           <property name="currentIndex">
-           <number>0</number>
+           <number>6</number>
           </property>
           <widget class="QWidget" name="tab_166">
            <attribute name="title">
@@ -2028,8 +2028,8 @@ by a unit (cm, mm, um, inch, in or mil)</string>
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>170</width>
-                    <height>63</height>
+                    <width>712</width>
+                    <height>259</height>
                    </rect>
                   </property>
                   <layout class="QGridLayout" name="mdiCommandsListGL">
@@ -2489,7 +2489,7 @@ if it does not exist</string>
         <item>
          <widget class="QTabWidget" name="c0_board_tw">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tab_27">
            <attribute name="title">
@@ -3045,7 +3045,7 @@ Leadscrew Pitch is turns per user unit. Example 6 turns per inch or .25 turns pe
             <item>
              <widget class="QTabWidget" name="c0_settings_0">
               <property name="currentIndex">
-               <number>0</number>
+               <number>4</number>
               </property>
               <widget class="QWidget" name="tab_28">
                <attribute name="title">

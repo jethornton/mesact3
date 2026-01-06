@@ -111,9 +111,9 @@ def build(parent):
 					contents.append('\n# Joint Enables\n')
 					contents.append(f'net {axis}-enable => pid.{axis}.enable\n')
 					contents.append(f'net {axis}-enable <= joint.{joint}.amp-enable-out\n')
-					contents.append(f'net {axis}-enable <= hm2_{hal_name}.0.{drive_enables[hal_name]}.00.enable\n')
+					contents.append(f'net {axis}-enable <= hm2_{hal_name}.0.{drive_enables[hal_name]}.0{joint}.enable\n')
 
-					# Stepgen FIXME get board hal name
+					# Stepgen
 					if getattr(parent, f'board_{i}_type') == 'stepper':
 						contents.append(f'\n# Joint {joint} Step Generator Settings\n')
 						contents.append(f'setp hm2_{hal_name}.0.stepgen.0{joint}.steplen [JOINT_{joint}](STEP_LEN)\n')
@@ -126,7 +126,7 @@ def build(parent):
 						contents.append(f'setp hm2_{hal_name}.0.stepgen.0{joint}.step_type 0\n')
 						contents.append(f'setp hm2_{hal_name}.0.stepgen.0{joint}.control-type 1\n')
 
-					# Servo
+					# Servo FIXME
 
 					# Position Command and Feedback
 					contents.append('\n# position command and feedback\n')
@@ -149,10 +149,8 @@ def build(parent):
 					elif getattr(parent, f'board_{i}_type') == 'servo':
 						contents.append(f'net joint.{joint}.output => hm2_{hal_name}.0.pwmgen.0{output}.value\n')
 
-
 					joint += 1
 
-	# contents.append(f'{}\n')
 	# E Stop
 	external_estop = False
 	for i in range(3): # test for an external e stop input
@@ -164,6 +162,38 @@ def build(parent):
 		contents.append('\n# Standard I/O Block - EStop, Etc\n')
 		contents.append('# create a signal for the estop loopback\n')
 		contents.append('net estop-loopback iocontrol.0.emc-enable-in <= iocontrol.0.user-enable-out\n')
+
+	# Manual Tool Change
+	if parent.manual_tool_change_cb.isChecked():
+		contents.append('\n# Manual Tool Change Dialog\n')
+		contents.append('loadusr -W hal_manualtoolchange\n')
+		contents.append('net tool-number hal_manualtoolchange.number <= iocontrol.0.tool-prep-number\n')
+		contents.append('net tool-change-request hal_manualtoolchange.change <= iocontrol.0.tool-change\n')
+		contents.append('net tool-change-confirmed iocontrol.0.tool-changed => hal_manualtoolchange.changed\n')
+
+		contents.append('\n# tool prep loopback\n')
+		contents.append('net tool-prep-loop iocontrol.0.tool-prepare => iocontrol.0.tool-prepared\n')
+
+	# ClassicLadder
+	if parent.ladder_gb.isChecked():
+		ladder_options_list = ['ladder_rungs_sb', 'ladder_bits_sb', 'ladder_words_sb',
+		'ladder_timers_sb', 'ladder_iec_timer_sb', 'ladder_monostables_sb',
+		'ladder_counters_sb', 'ladder_inputs_sb', 'ladder_outputs_sb',
+		'ladder_float_inputs_sb', 'ladder_float_outputs_sb', 'ladder_s32_inputs_sb',
+		'ladder_s32_ouputs_sb', 'ladder_sections_sb', 'ladder_symbols_sb',
+		'ladder_expresions_sb']
+
+		contents.append('\n# # Load Classicladder without GUI\n')
+		# this line needs to be built from the options if any are above 0
+		ladder_options = []
+		for option in ladder_options_list:
+			if getattr(parent, option).value() > 0:
+				ladder_options.append(getattr(parent, option).property('option') + '=' + str(getattr(parent, option).value()))
+		if ladder_options:
+				contents.append(f'loadrt classicladder_rt {" ".join(ladder_options)}\n')
+		else:
+			contents.append('loadrt classicladder_rt\n')
+		contents.append('addf classicladder.0.refresh servo-thread 1\n')
 
 
 	try:
