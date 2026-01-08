@@ -13,21 +13,6 @@ def build_io(parent):
 
 	contents.append('\n# Inputs\n')
 
-	
-
-	#main_boards = ['5i25', '5i25T', '6i25', '7i92', '7i92T']
-	#print(f'hm2_{parent.board_0_hal_name}.0.')
-	#print(f'{parent.board_cb.currentText()}')
-	#print(f'{parent.daughter_cb_1.currentText()}')
-	#print(f'{parent.daughter_cb_2.currentText()}')
-
-	#c0_board_tw
-	# intput tab index is 7 and output tab index is 8
-	# main_tw boards tab index is 3, 4 and 5
-	#
-	#db1 = parent.board_1_hal_name
-	#db2 = parent.board_2_hal_name
-
 	# key is hal name, value is hm2
 	main_board_hm2 = {
 	'7i76e': 'hm2_7i76e.0.7i76.0.0.',
@@ -57,46 +42,43 @@ def build_io(parent):
 					port = daughter_ports[daughter][i-1]
 					hm2 = f'hm2_{mb}.0.{daughter}.0.{port}.'
 				for j in range(32):
+					hal = hm2
 					input_pb = getattr(parent, f'c{i}_input_{j}')
 					if input_pb.isEnabled() and input_pb.text() != 'Select':
-						hal = f'{hm2}{input_names[daughter]}{j:02d}'
+						key = getattr(parent, f'c{i}_input_{j}').text()
+						pin_name += f'{input_names[daughter]}{j:02d}'
 						invert_cb = getattr(parent, f'c{i}_input_invert_{j}')
 						slow_cb = getattr(parent, f'c{i}_input_debounce_{j}')
 						if invert_cb.isChecked():
-							hal += invert
+							pin_name += invert
+						elif slow_cb.isChecked():
+							pin_name += '-slow'
 
-						print(f'hal {hal}')
-						#c0_input_invert_0
-						#c0_input_debounce_0
-
-
-						pass
-						#print(f'{io.inputs[input_pb.text()]}')
-						#print(f'{j}', end=' ')
-				#print(' Inputs Processed')
+						if io.inputs.get(key, False): # return False if key is not in dictionary
+							contents.append(f'{io.inputs[key]} {pin_name}\n')
+						else: # handle special cases
+							if key == 'Home All':
+								contents.append('\n# Home All Joints\n')
+								contents.append('net home-all ' + f'{pin_name}\n')
+								for i in range(6):
+									if getattr(parent, 'axisCB_' + str(i)).currentData():
+										contents.append('net home-all ' + f'joint.{j}.home-sw-in\n')
+							elif key[0:6] == 'E Stop':
+								eStops.append(hm2)
+							elif '+ Joint' in key: # Jog axis and joint enable
+								axis = key.split()[1].lower()
+								if axis in ja_dict:
+									joint = ja_dict[axis]
+									contents.append(f'net jog-{axis}-enable axis.{axis}.jog-enable <= {pin_name}\n')
+									contents.append(f'net jog-{axis}-enable joint.{joint}.jog-enable\n')
 
 
 			if getattr(parent, f'c{i}_board_tw').isTabVisible(8): # outputs tab
-				#print(f'Processing Outputs for board {i}')
-				#print('Outputs', end=' ')
 				for k in range(16):
 
 					output_pb = getattr(parent, f'c{i}_output_{k}')
 					if output_pb.isEnabled() and output_pb.text() != 'Select':
 						pass
-						#print(f'{io.outputs[output_pb.text()]}')
-						#print(f'{k}', end=' ')
-				#print(' Outputs Processed')
-
-	return
-
-	#c0_input_0
-	#c0_input_invert_0
-	#c0_input_debounce_0
-
-	#for i in range(3):
-	#	if getattr(parent, f'c{i}_board_tw').isTabVisible(7):
-	#		print(f'Processing Inputs for board {i}')
 
 	#c0_output_0
 	#c0_output_invert_0
