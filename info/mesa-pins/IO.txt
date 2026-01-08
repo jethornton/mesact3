@@ -1,0 +1,91 @@
+5/6i25 7i76 P2
+hm2_5i25.0.7i76.0.2.input-00 to 31 Pins
+hm2_5i25.0.7i76.0.2.input-00-not to 31 Pins
+hm2_5i25.0.7i76.0.2.output-00 to 15 Pins
+hm2_5i25.0.7i76.0.2.output-00-invert to 15 Parameters
+
+5/6i25 7i76 P3
+hm2_5i25.0.7i76.0.0.input-00 to 31 Pins
+hm2_5i25.0.7i76.0.0.input-00-not to 31 Pins
+hm2_5i25.0.7i76.0.0.output-00 to 15 Pins
+hm2_5i25.0.7i76.0.0.output-00-invert to 15 Parameters
+
+7i76E
+hm2_7i76e.0.7i76.0.0.input-00 to 31 Pins
+hm2_7i76e.0.7i76.0.0.input-00-not to 31 Pins
+hm2_7i76e.0.7i76.0.0.output-00 to 15 Pins
+hm2_7i76e.0.7i76.0.0.output-00-invert to 15 Parameters
+
+7i76EU
+hm2_7i76e.0.7i76.0.0.input-00 to 31 Pins
+hm2_7i76e.0.7i76.0.0.input-00-not to 31 Pins
+hm2_7i76e.0.7i76.0.0.output-00 to 15 Pins
+hm2_7i76e.0.7i76.0.0.output-00-invert to 15 Parameters
+
+7i92T 7i76 P1
+hm2_7i92.0.7i76.0.2.input-00 to 31 Pins
+hm2_7i92.0.7i76.0.2.input-00-not to 31 Pins
+hm2_7i92.0.7i76.0.2.output-00 to 15 Pins
+hm2_7i92.0.7i76.0.2.output-00-invert to 15 Parameter
+
+7i92T 7i76 P2
+hm2_7i92.0.7i76.0.0.input-00 to 31 Pins
+hm2_7i92.0.7i76.0.0.input-00-not to 31 Pins
+hm2_7i92.0.7i76.0.0.output-00 to 15 Pins
+hm2_7i92.0.7i76.0.0.output-00-invert to 15 Parameter
+
+7i92T 7i77 P1
+hm2_7i92.0.7i77.0.3.input-00 to 31 Pins
+hm2_7i92.0.7i77.0.3.input-00-not to 31 Pins
+hm2_7i92.0.7i77.0.3.output-00 to 15 Pins
+hm2_7i92.0.7i77.0.3.output-00-invert to 15 Parameter
+
+7i92T 7i77 P2
+hm2_7i92.0.7i77.0.0.input-00 to 31 Pins
+hm2_7i92.0.7i77.0.0.input-00-not to 31 Pins
+hm2_7i92.0.7i77.0.0.output-00 to 15 Pins
+hm2_7i92.0.7i77.0.0.output-00-invert to 15 Parameter
+
+7i95
+hm2_7i95.0.inmux.00.input-01 to 23 Pins
+hm2_7i95.0.inmux.00.input-01-not to 23 Pins
+hm2_7i95.0.inmux.00.input-01-slow to 23 Pins
+hm2_7i95.0.ssr.00.invert-00 to 05 Pins
+hm2_7i95.0.ssr.00.out-00 to 05 Pins
+
+7i95T
+hm2_7i95.0.inmux.00.input-01 to 23 Pins
+hm2_7i95.0.inmux.00.input-01-not to 23 Pins
+hm2_7i95.0.inmux.00.input-01-slow to 23 Pins
+hm2_7i95.0.ssr.00.invert-00 to 05 Pins
+hm2_7i95.0.ssr.00.out-00 to 05 Pins
+
+7i96
+hm2_7i96.0.gpio.000.in to 10 Pins
+hm2_7i96.0.gpio.000.in_not to 10 Pins
+hm2_7i96.0.ssr.00.invert-00 to 05 Pins
+hm2_7i96.0.ssr.00.out-00 to 05 Pins
+
+7i96S
+hm2_7i96s.0.inm.00.input-00 to 10 Pins
+hm2_7i96s.0.inm.00.input-00-not to 10 Pins
+hm2_7i96s.0.inm.00.input-00-slow to 10 Pins
+hm2_7i96s.0.ssr.00.invert-00 to 03 Pins
+hm2_7i96s.0.ssr.00.out-00 to 03 Pins
+hm2_7i96s.0.outm.00.invert-04 to 05 Pins
+hm2_7i96s.0.outm.00.out-04 to 05 Pins
+
+7i97
+hm2_7i97.0.inmux.00.input-00 to 15 Pins
+hm2_7i97.0.inmux.00.input-00-not to 15 Pins
+hm2_7i97.0.inmux.00.input-00-slow to 15 Pins
+hm2_7i97.0.ssr.00.invert-00 to 05 Pins
+hm2_7i97.0.ssr.00.out-00 to 05 Pins
+
+7i97T
+hm2_7i97.0.inmux.00.input-00 to 15 Pins
+hm2_7i97.0.inmux.00.input-00-not to 15 Pins
+hm2_7i97.0.inmux.00.input-00-slow to 15 Pins
+hm2_7i97.0.ssr.00.invert-00 to 05 Pins
+hm2_7i97.0.ssr.00.out-00 to 05 Pins
+

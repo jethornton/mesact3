@@ -51,7 +51,7 @@ def changed(parent, index):
 			set_io(parent, None, False, False, None, False, False)
 			parent.board_interface = 'pci'
 			parent.board_0_type = 'mother'
-			parent.board_0_hal_name = '' # FIXME
+			parent.board_0_hal_name = '5i25'
 			parent.mesaflash_name = '5i25t'
 			check_mesaflash(parent, (3,4,8))
 			info = ('Connector 5v Power\n'

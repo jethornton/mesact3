@@ -17,9 +17,9 @@ def build(parent):
 	if parent.firmware_cb.currentData():
 		contents.append(f'FIRMWARE = {parent.firmware_cb.currentData()}\n')
 	if parent.daughter_cb_1.currentData():
-		contents.append(f'DAUGHTER_1 = {parent.daughter_cb_1.currentData()}\n')
+		contents.append(f'DAUGHTER_1 = {parent.daughter_cb_1.currentText()}\n')
 	if parent.daughter_cb_2.currentData():
-		contents.append(f'DAUGHTER_2 = {parent.daughter_cb_2.currentData()}\n')
+		contents.append(f'DAUGHTER_2 = {parent.daughter_cb_2.currentText()}\n')
 
 	# build the [EMC] section
 	contents.append('\n[EMC]\n')

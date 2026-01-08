@@ -5,6 +5,7 @@ from libmesact import utilities
 from libmesact import updateini
 from libmesact import buildini
 from libmesact import buildhal
+from libmesact import buildio
 
 def build(parent):
 	if not check.check_config(parent):
@@ -76,7 +77,7 @@ def build(parent):
 	'''
 	buildini.build(parent) # FIXME remove after update ini is started
 	buildhal.build(parent)
-	#buildio.build_io(parent)
+	buildio.build_io(parent)
 	#buildio.build_ss(parent)
 	#buildmisc.build(parent)
 	#parent.mainTW.setCurrentIndex(11)

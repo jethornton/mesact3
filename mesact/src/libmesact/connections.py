@@ -14,6 +14,7 @@ from libmesact import sscards
 from libmesact import flash
 from libmesact import dialogs
 from libmesact import samples
+from libmesact import buildio
 
 def connect(parent):
 	# Menu Items
@@ -97,6 +98,10 @@ def connect(parent):
 	parent.sample_7i96s_pb.clicked.connect(partial(samples.sample_7i96s, parent))
 	parent.sample_7i97t_pb.clicked.connect(partial(samples.sample_7i97t, parent))
 
+	# Testing
+	parent.build_io_pb.clicked.connect(partial(buildio.build_io, parent))
+
+
 	# Firmware Tab
 	parent.firmware_cb.currentIndexChanged.connect(partial(flash.firmware_changed, parent))
 
@@ -119,6 +124,13 @@ def connect(parent):
 			getattr(parent, f'c{j}_ferror_default_{i}').clicked.connect(partial(axes.set_default_ferror, parent))
 			getattr(parent, f'c{j}_analog_default_{i}').clicked.connect(partial(axes.set_default_analog, parent))
 			getattr(parent, f'c{j}_drive_{i}').currentIndexChanged.connect(partial(axes.drive_changed, parent))
+
+	# I/O Tab
+	for i in range(3):
+		for j in range(32):
+			getattr(parent, f'c{i}_input_invert_{j}').stateChanged.connect(partial(utilities.input_changed, parent))
+			getattr(parent, f'c{i}_input_debounce_{j}').stateChanged.connect(partial(utilities.input_changed, parent))
+
 
 	# Smart Serial Tab
 	parent.ss_card_cb.currentIndexChanged.connect(partial(sscards.card_changed, parent))
