@@ -6,6 +6,7 @@ from libmesact import updateini
 from libmesact import buildini
 from libmesact import buildhal
 from libmesact import buildio
+from libmesact import buildss
 from libmesact import buildmisc
 
 def build(parent):
@@ -47,9 +48,9 @@ def build(parent):
 	'''
 	buildini.build(parent) # FIXME remove after update ini is started
 	buildhal.build(parent)
-	buildio.build_io(parent)
-	#buildio.build_ss(parent)
-	buildmisc.build(parent)
+	buildio.build(parent)
+	buildss.build(parent)
+	#buildmisc.build(parent)
 	#parent.mainTW.setCurrentIndex(11)
 	#parent.status_lb.setText('Saved')
 	#parent.actionBuild.setText('Build Config')

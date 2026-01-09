@@ -3,7 +3,7 @@ from datetime import datetime
 
 from libmesact import io
 
-def build_io(parent):
+def build(parent):
 	file_path = os.path.join(parent.config_path, 'io.hal')
 	parent.info_pte.appendPlainText(f'Building {file_path}')
 	contents = []
@@ -137,10 +137,6 @@ def build_io(parent):
 							contents.append(output_parameter)
 						if io.outputs.get(output_key, False): # return False if key is not in dictionary
 							contents.append(f'{io.outputs[output_key]} {output_pin}\n')
-
-
-	# c0_output_invert_0
-	# c0_output_type_0
 
 	try:
 		with open(file_path, 'w') as f:
