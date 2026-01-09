@@ -18,9 +18,9 @@ def build(parent):
 
 
 
-	try:
-		with open(file_path, 'w') as f:
-			f.writelines(contents)
-	except OSError:
-		parent.info_pte.appendPlainText(f'OS error\n {traceback.print_exc()}')
+		try:
+			with open(file_path, 'w') as f:
+				f.writelines(contents)
+		except OSError:
+			parent.info_pte.appendPlainText(f'OS error\n {traceback.print_exc()}')
 
