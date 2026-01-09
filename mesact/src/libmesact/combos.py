@@ -23,6 +23,8 @@ def build_combos(parent):
 
 	for item in boards:
 		parent.board_cb.addItem(item[0], item[1])
+	#parent.board_cb.item(5).setEnabled(False)
+	parent.board_cb.model().item(5).setEnabled(False)
 
 	# Settings Tab
 	gui = [
