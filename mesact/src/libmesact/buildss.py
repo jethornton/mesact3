@@ -6,10 +6,11 @@ from datetime import datetime
 def build(parent):
 	file_path = os.path.join(parent.config_path, 'sserial.hal')
 	parent.info_pte.appendPlainText(f'Building {file_path}')
-	contents = []
-	contents = ['# This file was created with the Mesa Configuration Tool on ']
-	contents.append(datetime.now().strftime('%b %d %Y %H:%M:%S') + '\n')
-	contents.append('# If you make changes to this file DO NOT use the Configuration Tool\n')
+	if parent.ss_card_cb.currentData():
+		contents = []
+		contents = ['# This file was created with the Mesa Configuration Tool on ']
+		contents.append(datetime.now().strftime('%b %d %Y %H:%M:%S') + '\n')
+		contents.append('# If you make changes to this file DO NOT use the Configuration Tool\n')
 
 
 
