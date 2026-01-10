@@ -39,6 +39,7 @@ def build(parent):
 		contents.append('DRIVER = hm2_pci\n')
 	elif parent.board_interface == 'spi':
 		contents.append('DRIVER = hm2_spix\n')
+		contents.append(f'ADDRESS = {parent.address_cb.currentText()}\n')
 
 	# build the [DISPLAY] section
 	contents.append('\n[DISPLAY]\n')
