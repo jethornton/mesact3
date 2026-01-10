@@ -168,10 +168,10 @@ def build_combos(parent):
 		parent.ss_card_cb.addItem(item[0], item[1])
 
 	parent.ss_card_cb.model().item(1).setEnabled(False)
+	parent.ss_card_cb.model().item(5).setEnabled(False)
 	parent.ss_card_cb.model().item(6).setEnabled(False)
 	parent.ss_card_cb.model().item(7).setEnabled(False)
 	parent.ss_card_cb.model().item(8).setEnabled(False)
-	parent.ss_card_cb.model().item(9).setEnabled(False)
 
 	# 7i73 Combo Boxes
 	parent.ss7i73_keypad_cb.addItem('None', ['w5d', 'w6d'])
