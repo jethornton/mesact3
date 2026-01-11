@@ -104,23 +104,6 @@ def build_menus(parent):
 			add_menu(outputs, menu)
 			button.setMenu(menu)
 
-	# 7i64
-	for i in range(24):
-		button = getattr(parent, f'ss7i64in_{i}')
-		menu = QMenu()
-		menu.triggered.connect(lambda action, button=button: button.setText(action.text()))
-		menu.triggered.connect(partial(utilities.changed, parent))
-		add_menu(inputs, menu)
-		button.setMenu(menu)
-
-	for i in range(24):
-		button = getattr(parent, f'ss7i64out_{i}')
-		menu = QMenu()
-		menu.triggered.connect(lambda action, button=button: button.setText(action.text()))
-		menu.triggered.connect(partial(utilities.changed, parent))
-		add_menu(outputs, menu)
-		button.setMenu(menu)
-
 	# 7i70
 	for i in range(48):
 		button = getattr(parent, f'ss7i70in_{i}')

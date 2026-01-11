@@ -31,26 +31,24 @@ def host_selected(parent):
 def card_changed(parent):
 	sscards = {
 	'Select':'No Card Selected',
-	'7i64':'24 Inputs, 24 Outputs',
 	'7i70':'48 Inputs',
 	'7i71':'48 Sourcing Outputs',
 	'7i72':'48 Sinking Outputs',
 	'7i73':'Pendant Card',
-	'7i84u':'32 Inputs 16 Outputs',
+	'7i84U':'32 Inputs 16 Outputs',
 	'7i87':'8 Analog Inputs',
 	'7iAO':'48 Inputs 24, Outputs'
 	}
 
 	sspage = {
 	'Select':0,
-	'7i64':1,
-	'7i70':2,
-	'7i71':3,
-	'7i72':4,
-	'7i73':5,
-	'7i84U':6,
-	'7i87':7,
-	'7iAO':8
+	'7i70':1,
+	'7i71':2,
+	'7i72':3,
+	'7i73':4,
+	'7i84U':5,
+	'7i87':6,
+	'7iAO':7
 	}
 	parent.ss_info.setText(sscards[parent.ss_card_cb.currentText()])
 	parent.ss_pages.setCurrentIndex(sspage[parent.ss_card_cb.currentText()])

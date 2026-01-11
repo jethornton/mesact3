@@ -14,6 +14,18 @@ def build(parent):
 		contents.append(datetime.now().strftime('%b %d %Y %H:%M:%S') + '\n')
 		contents.append('# If you make changes to this file DO NOT use the Configuration Tool\n')
 
+		'''
+		'7i64':'24 Inputs, 24 Outputs',
+		'7i70':'48 Inputs',
+		'7i71':'48 Sourcing Outputs',
+		'7i72':'48 Sinking Outputs',
+		'7i73':'Pendant Card',
+		'7i84u':'32 Inputs 16 Outputs',
+		'7i87':'8 Analog Inputs',
+		'7iAO':'48 Inputs 24, Outputs'
+		'''
+
+
 		match ss_board:
 			case '7i70':
 				contents.append('\n# Inputs\n')
@@ -43,9 +55,6 @@ def build_outputs(parent, host_board, ss_board, count):
 			key = getattr(parent, f'ss{ss_board}out_{i}').text()
 			outputs.append(f'{io.outputs[key]} hm2_{host_board}.0.{ss_board}.0.0.output-{i:02}\n')
 	return outputs
-
-
-
 
 
 def create_file(parent, file_path, contents):

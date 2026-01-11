@@ -154,7 +154,6 @@ def build_combos(parent):
 	# SS Card Tab
 	ss_boards = [
 		['Select', False],
-		['7i64', '7i64'],
 		['7i70', '7i70'],
 		['7i71', '7i71'],
 		['7i72', '7i72'],
@@ -166,12 +165,13 @@ def build_combos(parent):
 
 	for item in ss_boards:
 		parent.ss_card_cb.addItem(item[0], item[1])
-
+	'''
 	parent.ss_card_cb.model().item(1).setEnabled(False)
 	parent.ss_card_cb.model().item(5).setEnabled(False)
 	parent.ss_card_cb.model().item(6).setEnabled(False)
 	parent.ss_card_cb.model().item(7).setEnabled(False)
 	parent.ss_card_cb.model().item(8).setEnabled(False)
+	'''
 
 	# 7i73 Combo Boxes
 	parent.ss7i73_keypad_cb.addItem('None', ['w5d', 'w6d'])
