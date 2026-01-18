@@ -3,6 +3,7 @@ import os, shutil
 from libmesact import openini
 
 def setup_vars(parent):
+	parent.machine_name = ''
 	parent.config_path = ''
 	parent.board_name = None
 	parent.board_interface = None

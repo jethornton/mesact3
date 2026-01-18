@@ -12,7 +12,7 @@ def versions(parent):
 		#print(f'len(flex) {len(flex)}')
 		if len(flex) > 0:
 			version = flex.split()[2]
-			parent.flex_gui_lb.setText(f'{version}')
+			parent.flex_gui_version_lb.setText(f'{version}')
 			parent.flex_gui = True
 		else:
 			parent.flex_gui_lb.setText('Not Installed')
@@ -80,8 +80,8 @@ def versions(parent):
 		parent.os_code_name_lb.setText('No Codename')
 
 	parent.platform_lb.setText(sysconfig.get_platform())
-	parent.python_lb.setText(python_version())
-	parent.pyqt_lb.setText(qVersion())
+	parent.python_version_lb.setText(python_version())
+	parent.pyqt_version_lb.setText(qVersion())
 
 def get_versions(parent):
 	versions_thread = Thread(target=versions, args=(parent,))

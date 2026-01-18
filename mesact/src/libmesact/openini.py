@@ -56,6 +56,13 @@ def load_ini(parent, ini_file=None): # FIXME not loading daughter board
 		for item in ini_list[start + 1:end + 1]:
 			if '=' in item:
 				key, value = [part.strip() for part in item.split('=', 1)]
+				if key == 'VERSION':
+					config_version = tuple(map(int, value.split('.')))
+					if config_version < (3,0,0):
+						msg = (f'The INI file {os.path.basename(ini_file)}\n'
+						'Was built with an older version of the\n'
+						'Mesa Configuration Tool and is not compatible\n'
+						f'with Mesa Configuration Tool Version {parent.version}.')
 				if key in mesa and value not in ['Select', 'None']:
 					update(parent, mesa[key], value)
 
@@ -109,8 +116,9 @@ def load_ini(parent, ini_file=None): # FIXME not loading daughter board
 
 		display = {}
 		display['DISPLAY'] = 'gui_cb'
-		display['GUI'] = 'flex_gui_le'
+		display['GUI'] = 'flex_gui_lb'
 		display['EDITOR'] = 'editor_cb'
+		display['OPEN_FILE'] = 'startup_file_le'
 		display['POSITION_OFFSET'] = 'position_offset_cb'
 		display['POSITION_FEEDBACK'] = 'position_feedback_cb'
 		display['MAX_FEED_OVERRIDE'] = 'max_feed_override_dsb'
@@ -130,6 +138,20 @@ def load_ini(parent, ini_file=None): # FIXME not loading daughter board
 				key, value = [part.strip() for part in item.split('=', 1)]
 				if key in display and value not in ['Select', 'None']:
 					update(parent, display[key], value)
+
+	# FLEXGUI
+	'''
+	THEME
+	QSS
+	RESOURCES
+	SIZE
+	PLOT_BACKGROUND_COLOR
+	PLOT_VIEW
+	DRO_FONT_SIZE
+	PLOT_UNITS
+	PLOT_GRID
+	DRO_UNITS
+	'''
 
 	# FILTER
 

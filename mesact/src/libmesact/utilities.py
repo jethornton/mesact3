@@ -1,9 +1,11 @@
-import os, subprocess, requests
+import os, subprocess, requests, shutil
 from datetime import datetime
 from functools import partial
 
 from PyQt6.QtWidgets import QLineEdit, QComboBox, QDoubleSpinBox, QCheckBox
 from PyQt6.QtWidgets import QFileDialog, QLabel, QPushButton
+
+from libmesact import dialogs
 
 def is_number(s):
 	try:
@@ -44,7 +46,116 @@ def new_config(parent):
 	parent.intro_graphic_le.setText('emc2.gif')
 	parent.main_tw.setCurrentIndex(0)
 
-def select_dir(parent):
+def startup_file(parent):
+	dialog = QFileDialog(parent)
+	dialog.setWindowTitle("Select a NC Code File")
+	dialog.setFileMode(QFileDialog.FileMode.ExistingFile)
+	dialog.setDirectory(f'{os.path.expanduser("~/linuxcnc/nc_files")}')
+	dialog.setNameFilter('NC Code Files (*.ngc *.NGC)')
+	dialog.setOption(QFileDialog.Option.DontUseNativeDialog)
+	if dialog.exec():
+		source_path = dialog.selectedFiles()[0]
+		parent.startup_file_le.setText(os.path.basename(source_path))
+
+def select_flex_ui(parent):
+	if not parent.machine_name:
+		msg = ('In order to copy the Qt Designer\n'
+		'file the Machine Name can not be blank.\n'
+		'Enter the Machine Name so the\n'
+		'configuration path can be created\n'
+		'and the selected UI file can be\n'
+		'copied to the configuration directory.')
+		dialogs.msg_error_ok(parent, msg, 'Error')
+		return
+
+	dialog = QFileDialog(parent)
+	dialog.setWindowTitle("Select a Designer ui File")
+	dialog.setFileMode(QFileDialog.FileMode.ExistingFile)
+	dialog.setDirectory(f'{os.path.expanduser("~")}')
+	dialog.setNameFilter('QT Designer File (*.ui)')
+	dialog.setOption(QFileDialog.Option.DontUseNativeDialog)
+	if dialog.exec():
+		source_path = dialog.selectedFiles()[0]
+		#print("Selected file:", file_name)
+		#parent.flex_gui_path_lb.setText(os.path.dirname(source_path))
+		parent.flex_gui_lb.setText(os.path.basename(source_path))
+		# copy the file to the configuration directory if not there
+		ui_name = os.path.basename(source_path)
+		target_path = os.path.join(parent.config_path, ui_name)
+
+		if not os.path.isfile(target_path):
+			shutil.copy2(source_path, parent.config_path)
+
+'''
+match True:
+	case (variable > 10):
+		print("Variable is greater than 10")
+	case (variable < 10):
+		print("Variable is less than 10")
+	case _:
+		print("Variable is exactly 10 or condition is not met")
+'''
+
+def select_flex_qss(parent):
+	if not parent.machine_name:
+		msg = ('In order to copy the QSS file\n'
+		'the Machine Name can not be blank.\n'
+		'Enter the Machine Name so the\n'
+		'configuration path can be created\n'
+		'and the selected QSS file can be\n'
+		'copied to the configuration directory.')
+		dialogs.msg_error_ok(parent, msg, 'Error')
+		return
+
+	dialog = QFileDialog(parent)
+	dialog.setWindowTitle("Select a QT qss File")
+	dialog.setFileMode(QFileDialog.FileMode.ExistingFile)
+	dialog.setDirectory(f'{os.path.expanduser("~")}')
+	dialog.setNameFilter('QT Stylesheet File (*.qss)')
+	dialog.setOption(QFileDialog.Option.DontUseNativeDialog)
+	if dialog.exec(): # a file was chosen
+		source_path = dialog.selectedFiles()[0]
+		qss_name = os.path.basename(source_path)
+		target_path = os.path.join(parent.config_path, qss_name)
+		if not os.path.isdir(parent.config_path):
+			os.mkdir(parent.config_path)
+		if not os.path.isfile(target_path):
+			shutil.copy2(source_path, parent.config_path)
+		parent.custom_qss_le.setText(qss_name)
+
+		# if config path and the file is not there copy the file
+
+
+		return
+
+
+
+
+		'''
+		# copy the file to the configuration directory if not there
+		if not os.path.isfile(target_path):
+			if parent.config_path:
+				if os.path.isdir(parent.config_path:):
+					msg = ('Do you want to copy the stylesheet\n'
+					f'{base_name} to the configuration directory\n'
+					f'{parent.config_path}')
+					response = dialogs.msg_question_yes_no(parent, msg, 'Copy File?')
+					if response:
+						shutil.copy2(source_path, parent.config_path)
+				else: # config path does not exist
+					print('no config name')
+			elif not parent.config_path: # no machine name
+				print('nope')
+		'''
+
+def theme_changed(parent):
+	if parent.sender().currentData():
+		parent.custom_qss_le.setText('')
+		parent.open_qss_pb.setEnabled(False)
+	else:
+		parent.open_qss_pb.setEnabled(True)
+
+def select_dir(parent): # FIXME not used anywhere it seems
 	options = QFileDialog.Option.DontUseNativeDialog
 	dir_path = False
 	file_dialog = QFileDialog()
@@ -98,7 +209,6 @@ def update_settings(parent):
 		parent.settings.setValue('STARTUP/config', parent.ini_path)
 	else:
 		parent.settings.setValue('STARTUP/config', False)
-
 
 def gui_changed(parent):
 	if parent.gui_cb.currentData() == 'flexgui':

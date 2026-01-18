@@ -1,5 +1,7 @@
 import os
 
+from libmesact import dialogs
+
 def load(parent):
 	parent.firmware_cb.clear()
 	parent.firmware_info_pte.clear()
@@ -37,7 +39,7 @@ def no_firmware(parent, board):
 	parent.firmware_gb.setEnabled(False)
 	parent.firmware_cb.clear()
 
-	if parent.settings.value('NAGS/firmware', None, type=bool):
+	if parent.settings.value('NAGS/firmware', None, type=bool): # FIXME not sure if this works
 		msg = (f'No Firmware was found for the {board}.\n'
 		'Do you want to download the firmware now?')
 		response, no_nag = dialogs.msg_yes_no_check('Firmware', msg, "Don't Check for Firmware Again!")

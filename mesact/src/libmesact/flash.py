@@ -2,7 +2,6 @@ import subprocess
 from subprocess import Popen, PIPE
 
 from PyQt6.QtWidgets import QApplication, QInputDialog, QLineEdit
-from PyQt6.QtWidgets import QDialogButtonBox
 
 from libmesact import dialogs
 from libmesact import utilities

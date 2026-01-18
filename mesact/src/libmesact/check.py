@@ -28,21 +28,26 @@ def check_config(parent):
 	# end of Machine Tab
 
 	# check the Settings Display Tab for errors
+	if parent.traj_max_lin_vel_dsb.value() == 0:
+			tab_error = True
+			config_errors.append('\tMachine Settings requires the Maximum Linear Velocity to be more than 0.0')
+
 	if parent.gui_cb.currentData() == 'axis':
 		if parent.max_lin_jog_vel_dsb.value() == 0:
 			tab_error = True
 			config_errors.append('\tJog Settings requires the Maximum Linear Velocity to be more than 0')
 
 	if parent.gui_cb.currentData() == 'flexgui':
-		if parent.flex_gui_le.text() == '':
+		if parent.flex_gui_lb.text() == '':
 			tab_error = True
 			config_errors.append('\tFlex GUI requires a ui file name to load')
 
 	# check the Settings Jog Settings Tab for errors
 	if set(parent.coordinates_lb.text()) & set('XYZUVW'): # linear axes
-		if parent.default_lin_jog_vel_dsb.value() <= 0:
-			tab_error = True
-			config_errors.append('\tJog Settings Tab Default Linear Velocity must be greater than 0')
+		if parent.gui_cb.currentData() == 'axis':
+			if parent.default_lin_jog_vel_dsb.value() <= 0:
+				tab_error = True
+				config_errors.append('\tJog Settings Tab Default Linear Velocity must be greater than 0 for the Axis GUI')
 
 	if set(parent.coordinates_lb.text()) & set('ABC'): # rotary axes
 		if parent.def_ang_jog_vel_dsb.value() <= 0:

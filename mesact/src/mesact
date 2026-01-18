@@ -43,7 +43,7 @@ class mesact(QMainWindow):
 
 		self.version = VERSION
 		self.firmware_path = f'{os.path.expanduser("~")}/.local/lib/libmesact'
-		self.settings = QSettings('mesact', 'mesact')
+		self.settings = QSettings('mesact3', 'mesact3')
 		self.progress_bar = QProgressBar()
 		self.statusBar().addPermanentWidget(self.progress_bar)
 		self.downloader = None

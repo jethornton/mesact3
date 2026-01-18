@@ -59,10 +59,6 @@ def build(parent):
 		contents.append('# The PID controller gets feedback from the actual (fractional) step position and\n')
 		contents.append('# corrects for these small differences.\n')
 
-		contents.append('\n# DPLL TIMER\n')
-		contents.append(f'setp hm2_{parent.board_0_hal_name}.0.dpll.01.timer-us -200\n')
-		contents.append(f'setp hm2_{parent.board_0_hal_name}.0.stepgen.timer-number 1\n')
-
 	contents.append('\n# THREADS\n')
 	contents.append(f'addf hm2_{parent.board_0_hal_name}.0.read servo-thread\n')
 	contents.append('addf motion-command-handler servo-thread\n')
@@ -72,6 +68,11 @@ def build(parent):
 	for pid in pid_list:
 		contents.append(f'addf {pid}.do-pid-calcs servo-thread\n')
 	contents.append(f'addf hm2_{parent.board_0_hal_name}.0.write servo-thread\n')
+
+	if parent.board_0_type == 'stepper':
+		contents.append('\n# DPLL TIMER\n')
+		contents.append(f'setp hm2_{parent.board_0_hal_name}.0.dpll.01.timer-us -200\n')
+		contents.append(f'setp hm2_{parent.board_0_hal_name}.0.stepgen.timer-number 1\n')
 
 	contents.append('\n# amp enable\n')
 	contents.append(f'net motion-enable <= motion.motion-enabled\n')

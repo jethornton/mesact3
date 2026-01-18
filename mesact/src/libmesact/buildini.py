@@ -47,16 +47,18 @@ def build(parent):
 		contents.append(f'DISPLAY = {parent.gui_cb.currentText()}\n')
 	else:
 		contents.append(f'DISPLAY = {parent.gui_cb.currentData()}\n')
+
 	# Flex GUI
 	if parent.gui_cb.currentData() == 'flexgui':
-		contents.append(f'GUI = {parent.flex_gui_le.text()}\n')
+		contents.append(f'GUI = {parent.flex_gui_lb.text()}\n')
 
 	contents.append(f'PROGRAM_PREFIX = ~/linuxcnc/nc_files\n')
-
-	if parent.gui_cb.currentData() == 'axis':
-		contents.append(f'INTRO_GRAPHIC = {parent.intro_graphic_le.text()}\n')
-		contents.append(f'INTRO_TIME = {parent.splash_screen_sb.value()}\n')
-		contents.append(f'OPEN_FILE = "{parent.startup_file_le.text()}"\n')
+	contents.append(f'INTRO_GRAPHIC = {parent.intro_graphic_le.text()}\n')
+	contents.append(f'INTRO_TIME = {parent.splash_screen_sb.value()}\n')
+	if parent.startup_file_le.text(): # FIXME this needs to be the full path for Axis
+		contents.append(f'OPEN_FILE = {parent.startup_file_le.text()}\n')
+	else:
+		contents.append(f'OPEN_FILE = ""\n')
 
 	if parent.max_feed_override_dsb.value() > 0:
 		contents.append(f'MAX_FEED_OVERRIDE = {parent.max_feed_override_dsb.value():.1f}\n')
@@ -81,18 +83,6 @@ def build(parent):
 	# DEFAULT_LINEAR_VELOCITY = 0.250000
 	# MAX_LINEAR_VELOCITY = 1.000000
 
-
-
-	# FIXME these are in [FLEXGUI]
-	if parent.keyboard_qss_cb.isChecked():
-		contents.append(f'INPUT = keyboard\n')
-	elif parent.touch_qss_cb.isChecked():
-		contents.append(f'INPUT = touch\n')
-	elif len(parent.custom_qss_le.text()) > 0:
-		contents.append(f'QSS = {parent.custom_qss_le.text()}\n')
-	if parent.flex_size_cb.currentData():
-		contents.append(f'SIZE = {parent.flex_size_cb.currentData()}\n')
-
 	if parent.editor_cb.currentData():
 		contents.append(f'EDITOR = {parent.editor_cb.currentData()}\n')
 
@@ -108,6 +98,18 @@ def build(parent):
 	if parent.foam_rb.isChecked(): # FIXME this needs to be checked for correct coordinates
 		contents.append(f'Geometry = {parent.coordinates_lb.text()[0:2]};{parent.coordinates_lb.text()[2:4]}\n')
 		contents.append('FOAM = 1\n')
+
+	contents.append('\n[FLEXGUI]\n')
+	if parent.flex_theme_cb.currentData():
+		contents.append(f'THEME = {parent.flex_theme_cb.currentData()}\n')
+	elif parent.custom_qss_le.text():
+		contents.append(f'QSS = {parent.custom_qss_le.text()}\n')
+	if parent.keyboard_qss_cb.isChecked():
+		contents.append('INPUT = keyboard\n')
+	elif parent.touch_qss_cb.isChecked():
+		contents.append('INPUT = touch\n')
+	if parent.flex_size_cb.currentData():
+		contents.append(f'SIZE = {parent.flex_size_cb.currentData()}\n')
 
 	# build the [FILTER] Section
 	# build the [RS274NGC] Section
@@ -137,8 +139,7 @@ def build(parent):
 			if item.text() != 'Select':
 				io = True
 				break
-	#c0_inputs_tw
-	#c0_outputs_w
+
 	if io:
 		contents.append('HALFILE = io.hal\n')
 	if parent.ss_card_cb.currentData():
@@ -184,6 +185,12 @@ def build(parent):
 		contents.append(f'KINEMATICS = trivkins coordinates={parent.coordinates_lb.text()} kinstype=BOTH\n')
 	contents.append(f'JOINTS = {len(parent.coordinates_lb.text())}\n')
 
+	# build the [EMCIO] Section
+	contents.append('\n[EMCIO]\n')
+	contents.append('EMCIO = iov2\n')
+	contents.append('CYCLE_TIME = 0.100\n')
+	contents.append('TOOL_TABLE = tool.tbl\n')
+
 	axes = []
 	joint = 0
 	for i in range(3):
@@ -227,7 +234,7 @@ def build(parent):
 				contents.append(f'MAX_OUTPUT = {getattr(parent, f"c{i}_max_output_{j}").text()}\n')
 				contents.append(f'MAX_ERROR = {getattr(parent, f"c{i}_max_error_{j}").text()}\n')
 
-				# Following Error 
+				# Following Error c0_max_ferror_0
 				contents.append(f'\n# Following Error Settings\n')
 				contents.append(f'FERROR = {getattr(parent, f"c{i}_max_ferror_{j}").text()}\n')
 				contents.append(f'MIN_FERROR = {getattr(parent, f"c{i}_min_ferror_{j}").text()}\n')
@@ -305,13 +312,6 @@ def build(parent):
 			contents.append(f'OUTPUT_SCALE = {int(parent.spindle_rpm_le.text())}\n')
 			contents.append(f'OUTPUT_MIN_LIMIT = -{int(parent.spindle_rpm_le.text())}\n')
 			contents.append(f'OUTPUT_MAX_LIMIT = {int(parent.spindle_rpm_le.text())}\n')
-
-
-	# build the [EMCIO] Section
-	contents.append('\n[EMCIO]\n')
-	contents.append('EMCIO = iov2\n')
-	contents.append('CYCLE_TIME = 0.100\n')
-	contents.append('TOOL_TABLE = tool.tbl\n')
 
 	# build the [INPUTS] section
 	contents.append('\n[INPUTS]\n')
@@ -433,6 +433,14 @@ def build(parent):
 	elif parent.ss_card_cb.currentData() == '7i84u':
 		# 32 ss7i84in_
 		# 16 ss7i84out_
+		sink = ''
+		source = ''
+		for i in range(16):
+			sink += getattr(parent, f'ss7i84_out_type_{i}').currentData()[0]
+			source += getattr(parent, f'ss7i84_out_type_{i}').currentData()[1]
+		contents.append(f'SS7I84_SINK = {sink}\n')
+		contents.append(f'SS7I84_SOURCE = {source}\n')
+
 		for i in range(32):
 			if getattr(parent, f'ss7i84uin_{i}').text() != 'Select':
 				contents.append(f'ss7i84uin_{i} = {getattr(parent, "ss7i84uin_" + str(i)).text()}\n')

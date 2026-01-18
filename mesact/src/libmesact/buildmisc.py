@@ -73,6 +73,15 @@ def build(parent):
 			f.write('T1  P1  ;sample tool')
 		parent.info_pte.appendPlainText(f'The tool table file {tool_file} was created')
 
+	# create the qss file is not there
+	if parent.custom_qss_le.text():
+		qss_file = os.path.join(parent.config_path, parent.custom_qss_le.text())
+		if not os.path.isfile(qss_file):
+			with open(qss_file, 'w') as f:
+				f.write('/* This stylesheet file was created with Mesa CT */\n')
+				f.write('/* it will not be over written by the tool */')
+			parent.info_pte.appendPlainText(f'The tool table file {qss_file} was created')
+
 	# create the pyvcp panel if checked and not there
 	if parent.pyvcp_cb.isChecked():
 		pyvcp_file = os.path.join(parent.config_path, 'pyvcp.xml')

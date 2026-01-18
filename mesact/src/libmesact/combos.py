@@ -84,6 +84,8 @@ def build_combos(parent):
 	else:
 		parent.editor_cb.addItem('No Editors Found', False)
 
+	# Flex GUI Options
+
 	screen_size = [
 	['Select', False],
 	['Minimized', 'minimized'],
@@ -94,6 +96,19 @@ def build_combos(parent):
 
 	for item in screen_size:
 		parent.flex_size_cb.addItem(item[0], item[1])
+
+	flex_themes = [
+	['Select', False],
+	['Touch', 'touch'],
+	['Keyboard', 'keyboard'],
+	['Blue Keyboard', 'blue'],
+	['Blue Touch', 'blue-touch'],
+	['Dark Keyboard', 'dark'],
+	['Dark Touch', 'dark-touch']
+	]
+
+	for item in flex_themes:
+		parent.flex_theme_cb.addItem(item[0], item[1])
 
 	# Joint Tabs
 	axes = [

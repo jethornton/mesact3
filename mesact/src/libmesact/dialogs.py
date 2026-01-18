@@ -54,11 +54,11 @@ def msg_open_cancel(parent, msg, title):
 	else:
 		return False
 
-def msg_cancel_ok(parent, text, title):
+def msg_cancel_ok(parent, msg, title):
 	msgBox = QMessageBox(parent)
 	msgBox.setIcon(QMessageBox.Icon.Warning)
 	msgBox.setWindowTitle(title)
-	msgBox.setText(text)
+	msgBox.setText(msg)
 	msgBox.setStandardButtons(QMessageBox.StandardButton.Cancel |
 	QMessageBox.StandardButton.Ok)
 	returnValue = msgBox.exec()
@@ -67,11 +67,12 @@ def msg_cancel_ok(parent, text, title):
 	else:
 		return False
 
-def msg_error_ok(parent, text, title=None):
+def msg_error_ok(parent, msg, title=None):
+	# dialogs.msg_error_ok(parent, msg, '')
 	msgBox = QMessageBox(parent)
 	msgBox.setIcon(QMessageBox.Icon.Warning)
 	msgBox.setWindowTitle(title)
-	msgBox.setText(text)
+	msgBox.setText(msg)
 	msgBox.setStandardButtons(QMessageBox.StandardButton.Ok)
 	returnValue = msgBox.exec()
 	if returnValue == QMessageBox.StandardButton.Ok:
@@ -79,11 +80,11 @@ def msg_error_ok(parent, text, title=None):
 	else:
 		return False
 
-def msg_question(parent, text, title=None): # unused function
+def msg_question_ok(parent, msg, title=None): # unused function
 	msgBox = QMessageBox(parent)
 	msgBox.setIcon(QMessageBox.Icon.Question)
 	msgBox.setWindowTitle(title)
-	msgBox.setText(text)
+	msgBox.setText(msg)
 	msgBox.setStandardButtons(QMessageBox.StandardButton.Cancel |
 	QMessageBox.StandardButton.Ok)
 	returnValue = msgBox.exec()
@@ -92,11 +93,11 @@ def msg_question(parent, text, title=None): # unused function
 	else:
 		return False
 
-def msg_yes_no(parent, text, title=None):
+def msg_question_yes_no(parent, msg, title=None): # unused function
 	msgBox = QMessageBox(parent)
-	msgBox.setIcon(QMessageBox.Icon.Warning)
+	msgBox.setIcon(QMessageBox.Icon.Question)
 	msgBox.setWindowTitle(title)
-	msgBox.setText(text)
+	msgBox.setText(msg)
 	msgBox.setStandardButtons(QMessageBox.StandardButton.Yes |
 	QMessageBox.StandardButton.No)
 	returnValue = msgBox.exec()
@@ -105,14 +106,27 @@ def msg_yes_no(parent, text, title=None):
 	else:
 		return False
 
-def msg_yes_no_check(parent, text, title, chkbx_text):
+def msg_yes_no(parent, msg, title=None):
+	msgBox = QMessageBox(parent)
+	msgBox.setIcon(QMessageBox.Icon.Warning)
+	msgBox.setWindowTitle(title)
+	msgBox.setText(msg)
+	msgBox.setStandardButtons(QMessageBox.StandardButton.Yes |
+	QMessageBox.StandardButton.No)
+	returnValue = msgBox.exec()
+	if returnValue == QMessageBox.StandardButton.Yes:
+		return True
+	else:
+		return False
+
+def msg_yes_no_check(parent, msg, title, chkbx_text):
 	chkBox = QCheckBox(parent)
 	chkBox.setText(chkbx_text)
 	msgBox = QMessageBox()
 	msgBox.setCheckBox(chkBox)
 	msgBox.setIcon(QMessageBox.Icon.Warning)
 	msgBox.setWindowTitle(title)
-	msgBox.setText(text)
+	msgBox.setText(msg)
 	msgBox.setStandardButtons(QMessageBox.StandardButton.Yes |
 	QMessageBox.StandardButton.No)
 	returnValue = msgBox.exec()

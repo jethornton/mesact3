@@ -119,6 +119,11 @@ def connect(parent):
 	parent.mdi_le_0.returnPressed.connect(partial(utilities.add_mdi_row, parent))
 	parent.linear_units_cb.currentIndexChanged.connect(partial(utilities.units_changed, parent))
 	parent.traj_max_lin_vel_dsb.valueChanged.connect(partial(utilities.max_vel_changed, parent))
+	parent.flex_gui_pb.clicked.connect(partial(utilities.select_flex_ui, parent))
+	parent.open_qss_pb.clicked.connect(partial(utilities.select_flex_qss, parent))
+	parent.flex_theme_cb.currentIndexChanged.connect(partial(utilities.theme_changed, parent))
+	parent.startup_file_pb.clicked.connect(partial(utilities.startup_file, parent))
+
 
 	# Drive Tabs
 	for i in range(6):

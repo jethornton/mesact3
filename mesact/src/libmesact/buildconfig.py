@@ -1,6 +1,7 @@
-import os
+import os, shutil
 
 from libmesact import check
+from libmesact import dialogs
 from libmesact import utilities
 from libmesact import updateini
 from libmesact import buildini
@@ -35,9 +36,26 @@ def build(parent):
 		parent.info_pte.appendPlainText(f'The directory {nc_path} was created')
 
 	# create the linuxcnc/configs/configuration directory if not there
-	if not os.path.isdir(parent.config_path):
+	if not os.path.exists(parent.config_path): # there might be a file by the same name
 		os.mkdir(parent.config_path)
 		parent.info_pte.appendPlainText(f'The directory {parent.config_path} was created')
+		if parent.gui_cb.currentData() == 'flexgui':
+			if parent.flex_gui_path_lb.text() and parent.flex_gui_lb.text():
+				ui_path = os.path.join(parent.flex_gui_path_lb.text(), parent.flex_gui_lb.text())
+				if os.path.isfile(ui_path):
+					shutil.copy2(ui_path, parent.config_path)
+	elif os.path.isfile(parent.config_path):
+		msg = ('There seems to be a file in\n'
+		f'{os.path.expanduser("~/linuxcnc/configs")} with the\n'
+		'same name as the configuration directory.\n'
+		'The configuration directory\n'
+		f'{parent.config_path}\n'
+		'can not be created.\n'
+		'Either rename or remove the file\n'
+		'The build has failed')
+		dialogs.msg_error_ok(parent, msg, 'Build Error')
+		return
+
 
 	# for testing this is not used
 	'''
@@ -50,7 +68,7 @@ def build(parent):
 	buildhal.build(parent)
 	buildio.build(parent)
 	buildss.build(parent)
-	#buildmisc.build(parent)
+	buildmisc.build(parent)
 	#parent.mainTW.setCurrentIndex(11)
 	parent.status_lb.setText('Saved')
 	parent.actionBuild.setText('Build Config')

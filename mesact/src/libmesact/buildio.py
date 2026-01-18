@@ -67,7 +67,9 @@ def build(parent):
 					if input_pb.isEnabled() and input_pb.text() != 'Select':
 						key = getattr(parent, f'c{i}_input_{j}').text()
 
-						if i == 0:
+						if i == 0 and mb == '7i96':
+							input_pin = f'{hm2}{input_names[mb]}{j:02d}.in'
+						elif i == 0 and not mb == '7i96':
 							input_pin = f'{hm2}{input_names[mb]}{j:02d}'
 						elif i > 0:
 							input_pin = f'{address}{input_names[daughter]}{j:02d}'
