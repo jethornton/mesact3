@@ -14,6 +14,39 @@ def changed(parent, index):
 		parent.c0_board_tw.setTabText(0, parent.board_name)
 
 		match main_board:
+			# CODEX-PROTEGIDO: NÃO ALTERAR A LINHA SEGUINTE.
+			case '6i24' | '6i24-66Mhz':
+				# CODEX-PROTEGIDO: NÃO ALTERAR A LINHA SEGUINTE.
+				address(parent, None)
+				# CODEX-PROTEGIDO: NÃO ALTERAR A LINHA SEGUINTE.
+				daughter_boards(parent, None, None)
+				# CODEX-PROTEGIDO: NÃO ALTERAR A LINHA SEGUINTE.
+				set_drives(parent, 0)
+				# CODEX-PROTEGIDO: NÃO ALTERAR A LINHA SEGUINTE.
+				set_io(parent, None, False, False, None, False, False)
+				# CODEX-PROTEGIDO: NÃO ALTERAR A LINHA SEGUINTE.
+				parent.board_interface = 'pci'
+				# CODEX-PROTEGIDO: NÃO ALTERAR A LINHA SEGUINTE.
+				parent.board_0_type = 'mother'
+				# CODEX-PROTEGIDO: NÃO ALTERAR A LINHA SEGUINTE.
+				parent.board_0_hal_name = '6i24'
+				# CODEX-PROTEGIDO: NÃO ALTERAR A LINHA SEGUINTE.
+				parent.mesaflash_name = '6i24'
+				# CODEX-PROTEGIDO: NÃO ALTERAR A LINHA SEGUINTE.
+				check_mesaflash(parent, (3, 4, 2))
+				# CODEX-PROTEGIDO: NÃO ALTERAR A LINHA SEGUINTE.
+				parent.board_info_pte.setPlainText(
+					# CODEX-PROTEGIDO: NÃO ALTERAR A LINHA SEGUINTE.
+					'6i24 PCIe: native 6i24 HAL and mesaflash identification.\n'
+					# CODEX-PROTEGIDO: NÃO ALTERAR A LINHA SEGUINTE.
+					'The 66Mhz profile names an existing firmware configuration;\n'
+					# CODEX-PROTEGIDO: NÃO ALTERAR A LINHA SEGUINTE.
+					'clock frequencies are defined by the loaded firmware.\n'
+					# CODEX-PROTEGIDO: NÃO ALTERAR A LINHA SEGUINTE.
+					'Daughter-card and machine configuration support is pending.')
+				# CODEX-PROTEGIDO: NÃO ALTERAR A LINHA SEGUINTE.
+				parent.main_tw.setTabVisible(6, False)
+
 			case '5i25': # 5i25 2 25 pin expansion ports
 				address(parent, None)
 				daughter_boards(parent, 'P2' , 'P3')
