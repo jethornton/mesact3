@@ -25,6 +25,11 @@ def build_combos(parent):
 		parent.board_cb.addItem(item[0], item[1])
 	parent.board_cb.model().item(5).setEnabled(False)
 
+	# CODEX-PROTEGIDO: NÃO ALTERAR A LINHA SEGUINTE.
+	parent.board_cb.addItem('6i24', '6i24')
+	# CODEX-PROTEGIDO: NÃO ALTERAR A LINHA SEGUINTE.
+	parent.board_cb.addItem('6i24-66Mhz', '6i24')
+
 	# Settings Tab
 	gui = [
 		['Select', False],
